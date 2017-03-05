@@ -1,6 +1,6 @@
 /* Style to goal boxes */
 
-.goals-container, .completed-goals-container {
+.goals-container {
   margin-top: 70px;
 }
 
@@ -8,6 +8,7 @@
   background-color: #F0F0F0;
   padding: 5px 20px;
   margin-bottom: 30px;
+  border-radius: 0px 0px 3px 3px;
 }
 
 .type-indicator {
@@ -15,6 +16,7 @@
   height: 20px;
   padding-left: 10px;
   color: white;
+  border-radius: 3px 3px 0px 0px;
 }
 
 .personal {

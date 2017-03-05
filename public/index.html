@@ -5,12 +5,21 @@
     <title>30 before 30</title>
   </head>
   <body ng-app="goalsList" ng-cloak> <!--ng cloak not working-->
+  <!-- NAV STUFF -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand">30 before 30</span>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Add a goal <span class="sr-only">(current)</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
     <div class="container" ng-controller="goalsController">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <h1 class="text-center">30 before 30 Goals</h1>
-          <div class="page-header">
-          </div>
           <!-- For for adding goals -->
         <form ng-submit="addGoal()">
           <h3>Add a new goal</h3>
@@ -33,16 +42,15 @@
         </form>
         </div>
       </div>
-      <div class="row active-goals">
         <div class="col-sm-12">
-          <h1 class="selected title" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
+          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
           <h1 class="title">/</h1>
-          <h1 class="title"  ng-click="changeActiveGoals()">{{completed.length}} completed goals</h1>
+          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} completed goals</h1>
             <!-- <span class="tracker current col-sm-3">{{goals.length}} active goals</span>
             <span class="tracker completed col-sm-3">{{completed.length}} completed goals</span> -->
         </div>
         <!-- ACTIVE GOALS -->
-        <div class="goals-container" ng-show="showActiveGoals">
+        <div class="row goals-container" ng-show="showActiveGoals">
           <div ng-repeat="goal in goals">
             <div class="col-sm-4">
               <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
@@ -55,10 +63,9 @@
             </div>
           </div>
         </div>
-      </div>
 
       <!-- COMPLETED GOALS -->
-      <div class="row completed-goals" ng-hide="showCompletedGoals">
+      <div class="row goals-container" ng-hide="showCompletedGoals">
          <div ng-repeat="goal in completed">
             <div class="col-sm-4">
               <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase}}</span>

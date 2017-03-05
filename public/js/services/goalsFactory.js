@@ -13,12 +13,6 @@ app.factory('goalsFactory', function(){
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Run a marathon",
-    type: "personal",
-    description: "The more you run, the more you can eat",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
     goal: "Plant a garden",
     type: "project",
     description: "Plants are dope",
@@ -26,7 +20,26 @@ app.factory('goalsFactory', function(){
   }
   ];
 
-  var completed = [];
+  var completed = [
+  {
+    goal: "Being born",
+    type: "personal",
+    description: "A tough day but a good day #thanksmom",
+    image: "http://lorempixel.com/400/300/cats/"
+  },
+  {
+    goal: "Run a marathon",
+    type: "personal",
+    description: "The more you run, the more you can eat",
+    image: "http://lorempixel.com/400/300/cats/"
+  },
+  {
+    goal: "Go to Israel",
+    type: "travel",
+    description: "living my best life",
+    image: "http://lorempixel.com/400/300/cats/"
+  }
+  ];
 
   return {
     goals: goals,
