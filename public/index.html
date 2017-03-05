@@ -35,14 +35,14 @@
       </div>
       <div class="row active-goals">
         <div class="col-sm-12">
-          <h1 class="selected title" ng-click="toggleGoalsView()">{{goals.length}} Active goals</h1>
+          <h1 class="selected title" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
           <h1 class="title">/</h1>
-          <h1 class="title" ng-click="toggleGoalsView()">{{completed.length}} completed goals</h1>
+          <h1 class="title"  ng-click="changeActiveGoals()">{{completed.length}} completed goals</h1>
             <!-- <span class="tracker current col-sm-3">{{goals.length}} active goals</span>
             <span class="tracker completed col-sm-3">{{completed.length}} completed goals</span> -->
         </div>
         <!-- ACTIVE GOALS -->
-        <div class="goals-container">
+        <div class="goals-container" ng-show="showActiveGoals">
           <div ng-repeat="goal in goals">
             <div class="col-sm-4">
               <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
@@ -56,9 +56,9 @@
           </div>
         </div>
       </div>
+
       <!-- COMPLETED GOALS -->
-      <div class="row completed-goals hidden">
-      <h1>Completed Goals</h1>
+      <div class="row completed-goals" ng-hide="showCompletedGoals">
          <div ng-repeat="goal in completed">
             <div class="col-sm-4">
               <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase}}</span>

@@ -19,7 +19,18 @@ app.controller('goalsController', function($scope, goalsFactory){
     var index = $scope.goals.indexOf(goal);
     $scope.goals.splice(index, 1);
   }
-  $scope.toggleGoalsView = function() {
-    $scope.selected = true;
+  $scope.showActiveGoals = true;
+  $scope.showCompletedGoals = true;
+
+  $scope.changeCompletedGoals = function () {
+    $scope.showActiveGoals = true;
+    $scope.showCompletedGoals = true;
   }
+
+  $scope.changeActiveGoals = function () {
+    $scope.showActiveGoals = false;
+    $scope.showCompletedGoals = false;
+  }
+
+
 })
