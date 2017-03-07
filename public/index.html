@@ -11,7 +11,7 @@
       <div class="navbar-header">
         <span class="navbar-brand">30 before 30</span>
         <ul class="nav navbar-nav navbar-right">
-          <li class="active" ng-click="show=!show"><a href="#">Add a goal <span class="sr-only">(current)</span></a></li>
+          <li class="active" ng-click="show=!show"><a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal <span class="sr-only">(current)</span></a></li>
         </ul>
       </div>
     </div>
@@ -46,8 +46,13 @@
           <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
           <h1 class="title">/</h1>
           <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} Completed goals</h1>
-            <!-- <span class="tracker current col-sm-3">{{goals.length}} active goals</span>
-            <span class="tracker completed col-sm-3">{{completed.length}} completed goals</span> -->
+          <div class="pull-right">
+            <span class="tracker career">career</span>
+            <span class="tracker personal">personal</span>
+            <span class="tracker travel">travel</span>
+            <span class="tracker project">travel</span>
+            <span class="tracker other">other</span>
+          </div>
         </div>
         <!-- ACTIVE GOALS -->
         <div class="row goals-container" ng-show="showActiveGoals">
