@@ -3,12 +3,13 @@
   line-height: 20px;
   padding: 10px 15px;
   color: white;
+  cursor: pointer;
 }
 
 /* Styles for Add a goal overlay */
 .add-goal-container {
     background-color: rgba(0,0,0,0.2);
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -22,6 +23,7 @@
   margin: auto;
   padding: 30px;
   border: 1px solid grey;
+  margin-top: 10%;
 }
 
 /* Style for goal boxes */
@@ -44,10 +46,6 @@
   padding-left: 10px;
   color: white;
   border-radius: 3px 3px 0px 0px;
-}
-
-.tracker {
-  color: white;
 }
 
 .personal {
@@ -92,11 +90,22 @@
 
 /* Toggle buttons */
 
-.tracker {
+.pills {
   border: 1px solid #f0f0f0;
   border-radius: 3px;
   display: inline-block;
-  padding: 10px;
+  padding: 4px;
   margin: 5px;
+  color: white;
+}
+
+.pills-container {
+  margin: 20px 0px;
+}
+
+/* Other ish */
+.navbar {
+  border: none;
+  border-radius: 0px;
 }
 
