@@ -1,8 +1,30 @@
 .add-goal-btn {
   background-color: orange;
+  line-height: 20px;
+  padding: 10px 15px;
+  color: white;
 }
 
-/* Style to goal boxes */
+/* Styles for Add a goal overlay */
+.add-goal-container {
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.add-goal-form-container {
+  background-color: white;
+  width: 75%;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid grey;
+}
+
+/* Style for goal boxes */
 
 .goals-container {
   margin-top: 70px;
@@ -13,6 +35,7 @@
   padding: 5px 20px;
   margin-bottom: 30px;
   border-radius: 0px 0px 3px 3px;
+  min-height: 220px;
 }
 
 .type-indicator {
@@ -21,6 +44,10 @@
   padding-left: 10px;
   color: white;
   border-radius: 3px 3px 0px 0px;
+}
+
+.tracker {
+  color: white;
 }
 
 .personal {
@@ -37,6 +64,10 @@
 
 .project {
   background-color: #3ABC34;
+}
+
+.experience {
+  background-color: purple;
 }
 
 .other {
