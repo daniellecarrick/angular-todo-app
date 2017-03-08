@@ -10,82 +10,90 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <span class="navbar-brand">30 before 30</span>
+        <span class="navbar-brand">Life Goals</span>
       </div>
       <ul class="nav navbar-nav navbar-right">
           <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal <span class="sr-only">(current)</span></li>
       </ul>
     </div>
   </nav>
-    <div class="container" ng-controller="goalsController">
-      <div class="row add-goal-container" ng-show="show">
-        <div class="add-goal-form-container">
-          <div>
-            <h1 class="text-center">Add a new goal</h1>
-            <!-- For for adding goals -->
-            <form ng-submit="addGoal()">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Goal" ng-model="goalText"></input>
-              </div>
-              <div class="form-group">
-                <select ng-model="typeText" class="form-control">
-                  <option>Travel</option>
-                  <option>Career</option>
-                  <option>Personal</option>
-                  <option>Project</option>
-                  <option>Experience</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Describe the goal" ng-model="descriptionText"></input>
-              </div>
-              <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
-              <button type="button" class="btn btn-primary" ng-click="show=!show">Cancel</button>
-            </form>
-          </div>
-        </div>
-      </div>
-        <div class="col-sm-12">
-          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
-          <h1 class="title">/</h1>
-          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} Completed goals</h1>
-          <div class="pull-left pills-container">
-            <span class="pills career">career</span>
-            <span class="pills personal">personal</span>
-            <span class="pills travel">travel</span>
-            <span class="pills project">travel</span>
-            <span class="pills other">other</span>
-          </div>
-        </div>
-        <!-- ACTIVE GOALS -->
-        <div class="row goals-container" ng-show="showActiveGoals">
-          <div ng-repeat="goal in goals">
-            <div class="col-xs-4">
-              <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-              <div class="goal-box">
-                <h3>{{ goal.goal }}</h3>
-                <p>{{ goal.description }}</p>
-                <span class="glyphicon glyphicon-remove-circle" ng-click="delete(goal)" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-ok-circle" ng-click="moveToCompleted(goal)" aria-hidden="true"></span>
-              </div>
+  <div class="quote-container">
+    <div class="container">
+      <div class="quote">"It does not matter how slowly you go as long as you do not stop"</div>
+    </div>
+  </div>
+  <div class="container" ng-controller="goalsController">
+    <div class="row add-goal-container" ng-show="show">
+      <div class="add-goal-form-container">
+        <div>
+          <h1 class="text-center">Add a new goal</h1>
+          <!-- For for adding goals -->
+          <form ng-submit="addGoal()">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Goal" ng-model="goalText"></input>
             </div>
-          </div>
-        </div>
-
-      <!-- COMPLETED GOALS -->
-      <div class="row goals-container" ng-hide="showCompletedGoals">
-         <div ng-repeat="goal in completed">
-            <div class="col-xs-4">
-              <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase}}</span>
-              <div class="goal-box">
-                <h3>{{ goal.goal }}</h3>
-                <p>{{ goal.description }}</p>
-              </div>
+            <div class="form-group">
+              <select ng-model="typeText" class="form-control">
+                <option>Travel</option>
+                <option>Career</option>
+                <option>Personal</option>
+                <option>Project</option>
+                <option>Experience</option>
+                <option>Other</option>
+              </select>
             </div>
-          </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Describe the goal" ng-model="descriptionText"></input>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="show=!show">Cancel</button>
+          </form>
+        </div>
       </div>
     </div>
+      <div class="col-sm-12">
+      <div class="title-container">
+        <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
+        <h1 class="title">/</h1>
+        <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} Completed goals</h1>
+      </div>
+        <div class="pull-left pills-container">
+          <span class="pills career">career</span>
+          <span class="pills personal">personal</span>
+          <span class="pills travel">travel</span>
+          <span class="pills project">project</span>
+          <span class="pills experience">experience</span>
+          <span class="pills other">other</span>
+        </div>
+      </div>
+      <!-- ACTIVE GOALS -->
+      <div class="row goals-container" ng-show="showActiveGoals">
+        <div ng-repeat="goal in goals">
+          <div class="col-xs-4">
+            <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
+            <div class="goal-box">
+              <h3>{{ goal.goal }}</h3>
+              <p>{{ goal.description }}</p>
+              <span class="glyphicon glyphicon-remove-circle" ng-click="delete(goal)" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-ok-circle" ng-click="moveToCompleted(goal)" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- COMPLETED GOALS -->
+    <div class="row goals-container" ng-hide="showCompletedGoals">
+       <div ng-repeat="goal in completed">
+          <div class="col-xs-4">
+            <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase}}</span>
+            <div class="goal-box">
+              <h3>{{ goal.goal }}</h3>
+              <p>{{ goal.description }}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
   <script src="angular/angular.js"></script>
   <script src="js/app.js"></script>
   <script src="js/services/goalsFactory.js"></script>

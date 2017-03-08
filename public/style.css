@@ -1,9 +1,14 @@
 .add-goal-btn {
   background-color: orange;
   line-height: 20px;
-  padding: 10px 15px;
+  padding: 15px;
   color: white;
   cursor: pointer;
+  height: 50px;
+}
+
+.add-goal-btn:hover {
+  background-color: darkorange;
 }
 
 /* Styles for Add a goal overlay */
@@ -78,6 +83,10 @@
   cursor: pointer;
 }
 
+.title-container {
+  margin-bottom: 30px;
+}
+
 .selected {
   color: black;
   cursor: default;
@@ -87,6 +96,15 @@
   visibility: hidden;
 }
 
+/* Quote container */
+
+.quote-container {
+  background-color: #F0F0F0;
+  margin-bottom: 50px;
+  font-size: 40px;
+  padding:30px;
+  border-bottom: 4px solid darkgrey;
+}
 
 /* Toggle buttons */
 
@@ -100,12 +118,18 @@
 }
 
 .pills-container {
-  margin: 20px 0px;
+  margin-bottom: 30px;
 }
 
 /* Other ish */
 .navbar {
   border: none;
   border-radius: 0px;
+  margin-bottom: 0px;
+}
+
+goal-box .glyphicon {
+  color: darkgrey;
+  cursor: pointer;
 }
 
