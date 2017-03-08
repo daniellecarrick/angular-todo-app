@@ -40,7 +40,8 @@
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Describe the goal" ng-model="descriptionText"></input>
               </div>
-              <button type="submit" class="btn btn-primary">Add</button>
+              <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
+              <button type="button" class="btn btn-primary" ng-click="show=!show">Cancel</button>
             </form>
           </div>
         </div>
@@ -49,7 +50,7 @@
           <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
           <h1 class="title">/</h1>
           <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} Completed goals</h1>
-          <div class="pull-right pills-container">
+          <div class="pull-left pills-container">
             <span class="pills career">career</span>
             <span class="pills personal">personal</span>
             <span class="pills travel">travel</span>
