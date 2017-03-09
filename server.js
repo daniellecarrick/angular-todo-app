@@ -44,12 +44,23 @@ app.post('/goals', function(req, res, next) {
 });
 
 app.delete('/goals/:id', function(req, res, next) {
-  Goal.remove({ _id: req.param.id }, function(err) {
+  Goal.remove({ _id: req.params.id }, function(err) {
     if (err) {
       console.error(err)
       return next(err);
     } else {
       res.send("Goal Deleted");
+    }
+  });
+});
+
+app.put('/goals/:id', function(req, res, next) {
+  Goal.findOneAndUpdate({ _id: req.param.id }, req.body, function(err, beer) {
+    if (err) {
+      console.error(err)
+      return next(err);
+    } else {
+      res.send(beer);
     }
   });
 });
