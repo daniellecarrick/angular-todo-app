@@ -29,6 +29,13 @@
   padding: 30px;
   border: 1px solid grey;
   margin-top: 10%;
+  position: relative;
+}
+
+.add-goal-form-container .glyphicon {
+  position: absolute;
+  top: 10;
+  right: 10;
 }
 
 /* Style for goal boxes */
