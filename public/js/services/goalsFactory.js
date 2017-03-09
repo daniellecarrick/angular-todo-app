@@ -1,4 +1,5 @@
-app.factory('goalsFactory', function($http){
+app.factory('goalsFactory', function($http, $log){
+
   var goals = [
   {
     goal: "Hike the PCT",
@@ -58,9 +59,49 @@ app.factory('goalsFactory', function($http){
     image: "http://lorempixel.com/400/300/cats/"
   }
   ];
+  var goalText = "";
+  var typeText = "";
+  var descriptionText = "";
+
+  var addGoal = function(goalText, typeText, descriptionText) {
+    goals.push({goal: goalText, type: typeText, description: descriptionText});
+    $log.log("added a goal");
+    $log.log(goalText);
+  }
+
+  var moveToCompleted = function(goal) {
+    completed.push(goal);
+    var index = goals.indexOf(goal);
+    goals.splice(index, 1);
+    console.log("fact was clicked");
+  }
+
+  var deleteGoal = function(goal) {
+    /*To do: add an are you sure*/
+    var index = goals.indexOf(goal);
+    goals.splice(index, 1);
+    console.log(goals);
+  }
+
+  var changeCompletedGoals = function () {
+    showActiveGoals = true;
+    showCompletedGoals = true;
+    $log.log(showActiveGoals)
+  }
+
+  var changeActiveGoals = function () {
+    showActiveGoals = false;
+    showCompletedGoals = false;
+    $log.log(showActiveGoals)
+  }
 
   return {
     goals: goals,
-    completed: completed
+    completed: completed,
+    moveToCompleted: moveToCompleted,
+    deleteGoal: deleteGoal,
+    changeActiveGoals: changeActiveGoals,
+    changeCompletedGoals: changeCompletedGoals,
+    addGoal: addGoal
   };
 });

@@ -3,14 +3,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>30 before 30</title>
+    <title>Goalie</title>
   </head>
   <body ng-app="goalsList" ng-cloak> <!--ng cloak not working-->
   <!-- NAV STUFF -->
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <span class="navbar-brand">Life Goals</span>
+        <span class="navbar-brand">Goalie</span>
       </div>
       <ul class="nav navbar-nav navbar-right">
           <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal <span class="sr-only">(current)</span></li>
@@ -29,7 +29,7 @@
           <h1 class="text-center">Add a new goal</h1>
           <span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <!-- For for adding goals -->
-          <form ng-submit="addGoal()">
+          <form ng-submit="addGoal(goalText, typeText, descriptionText)">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Goal" ng-model="goalText"></input>
             </div>
@@ -75,7 +75,7 @@
             <div class="goal-box">
               <h3>{{ goal.goal }}</h3>
               <p>{{ goal.description }}</p>
-              <span class="glyphicon glyphicon-remove-circle" ng-click="delete(goal)" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
               <span class="glyphicon glyphicon-ok-circle" ng-click="moveToCompleted(goal)" aria-hidden="true"></span>
             </div>
           </div>

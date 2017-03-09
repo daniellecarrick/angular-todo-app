@@ -1,36 +1,19 @@
 app.controller('goalsController', function($scope, goalsFactory){
+  window.a=$scope;
   $scope.goals = goalsFactory.goals;
   $scope.completed = goalsFactory.completed;
   /*variables in the form*/
-  $scope.goalText;;
-  $scope.typeText;
-  $scope.descriptionText;
-  $scope.addGoal = function() {
-    $scope.goals.push({goal:$scope.goalText, type: $scope.typeText, description: $scope.descriptionText});
-  }
-  $scope.moveToCompleted = function(goal) {
-    $scope.completed.push(goal);
-    var index = $scope.goals.indexOf(goal);
-    $scope.goals.splice(index, 1);
-    console.log("it was clicked");
-  }
-  $scope.delete = function(goal) {
-    /*To do: add an are you sure*/
-    var index = $scope.goals.indexOf(goal);
-    $scope.goals.splice(index, 1);
-  }
+/*  $scope.goalText = goalsFactory.goalText;
+  $scope.typeText = goalsFactory.typeText;
+  $scope.descriptionText = goalsFactory.descriptionText;*/
+
+  $scope.addGoal = goalsFactory.addGoal;
+  $scope.moveToCompleted = goalsFactory.moveToCompleted;
+  $scope.deleteGoal = goalsFactory.deleteGoal;
+
   $scope.showActiveGoals = true;
   $scope.showCompletedGoals = true;
-
-  $scope.changeCompletedGoals = function () {
-    $scope.showActiveGoals = true;
-    $scope.showCompletedGoals = true;
-  }
-
-  $scope.changeActiveGoals = function () {
-    $scope.showActiveGoals = false;
-    $scope.showCompletedGoals = false;
-  }
-
-
+  $scope.changeCompletedGoals = goalsFactory.changeCompletedGoals;
+  $scope.changeActiveGoals = goalsFactory.changeActiveGoals;
+  $scope.show=false;
 })
