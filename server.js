@@ -2,32 +2,55 @@ var express = require('express');
 var app = express();
 
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/goals")
+var Goal = require("./models/GoalModel");
+mongoose.connect("mongodb://localhost/goalsdb"); //database name
 
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
   res.send('Testing Server')
 })
 
-app.get('/beers', function(req, res) {
-  res.json({
-    beers: [{
-      name: '512 IPA',
-      style: 'IPA',
-      image_url: 'http://bit.ly/1XtmB4d',
-      abv: 5
-    }, {
-      name: '512 Pecan Porter',
-      style: 'Porter',
-      image_url: 'http://bit.ly/1Vk5xj4',
-      abv: 4
-    }]
+app.get('/goals', function(req, res, next) {
+  Goal.find(function (error, goals) {
+    if (error) {
+      console.error(error)
+      return next(error);
+    } else {
+      console.log(goals);
+      res.send(goals);
+    }
+  });
+});
+
+/*app.post('/goals', function (req, res, next) {
+  res.send('POST!');
+});*/
+
+app.post('/goals', function(req, res, next) {
+  Goal.create(req.body, function(error, goal) {
+    if (error) {
+      console.error(error)
+      return next(error);
+    } else {
+      res.json(goal);
+    }
+  });
+});
+
+app.delete('/goals/:id', function(req, res, next) {
+  Goal.remove({ _id: req.param.id }, function(err) {
+    if (err) {
+      console.error(err)
+      return next(err);
+    } else {
+      res.send("Goal Deleted");
+    }
   });
 });
 
