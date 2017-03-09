@@ -55,12 +55,12 @@ app.delete('/goals/:id', function(req, res, next) {
 });
 
 app.put('/goals/:id', function(req, res, next) {
-  Goal.findOneAndUpdate({ _id: req.param.id }, req.body, function(err, beer) {
+  Goal.findOneAndUpdate({ _id: req.param.id }, req.body, function(err, goal) {
     if (err) {
       console.error(err)
       return next(err);
     } else {
-      res.send(beer);
+      res.send(goal);
     }
   });
 });

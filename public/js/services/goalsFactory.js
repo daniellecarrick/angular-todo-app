@@ -1,4 +1,4 @@
-app.factory('goalsFactory', function(){
+app.factory('goalsFactory', function($http){
   var goals = [
   {
     goal: "Hike the PCT",
