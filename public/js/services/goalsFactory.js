@@ -1,43 +1,6 @@
 app.factory('goalsFactory', function($http, $log){
 
-  var goals = [
-  /*{
-    name: "Hike the PCT",
-    type: "travel",
-    description: "Cheryl strayed is BAE",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
-    name: "Start my own business",
-    type: "career",
-    description: "Time to put the business degree to use",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
-    name: "Plant a garden",
-    type: "project",
-    description: "Plants are dope",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
-    name: "Live abroad",
-    type: "travel",
-    description: "For ze experience",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
-    name: "Go skydiving",
-    type: "experience",
-    description: "No time for fear",
-    image: "http://lorempixel.com/400/300/cats/"
-  },
-  {
-    name: "Adopt a dog",
-    type: "project",
-    description: "Dogs are hella cute",
-    image: "http://lorempixel.com/400/300/cats/"
-  }*/
-  ];
+  var goals = [];
 
   var completed = [
   {
@@ -66,13 +29,6 @@ app.factory('goalsFactory', function($http, $log){
     goals.splice(index, 1);
     console.log("fact was clicked");
   }
-
-/*  var deleteGoal = function(goal) {
-    //To do: add an are you sure
-    var index = goals.indexOf(goal);
-    goals.splice(index, 1);
-    console.log(goals);
-  }*/
 
   var getGoals = function() {
     return $http.get('/goals')
@@ -108,20 +64,16 @@ app.factory('goalsFactory', function($http, $log){
     };
 
   var updateGoal = function(goal) {
-    return $http.put('/goals/' + goal.id)
-      .then(function(response) {
-        console.log(response);
-        goals.push(goal);
-      }, function(err) {
-        console.log(err)
-      });
-    };
+    console.log("updateGoal was clicked")
+  }
+
   return {
     goals: goals,
     completed: completed,
     moveToCompleted: moveToCompleted,
     deleteGoal: deleteGoal,
     addGoal: addGoal,
-    getGoals: getGoals
+    getGoals: getGoals,
+    updateGoal: updateGoal
   };
 });

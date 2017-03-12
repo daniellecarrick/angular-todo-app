@@ -6,6 +6,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   $scope.addGoal = goalsFactory.addGoal;
   $scope.moveToCompleted = goalsFactory.moveToCompleted;
   $scope.deleteGoal = goalsFactory.deleteGoal;
+  $scope.updateGoal = goalsFactory.updateGoal;
   $scope.showActiveGoals = true;
   $scope.showCompletedGoals = true;
 
