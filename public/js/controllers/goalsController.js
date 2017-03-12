@@ -2,10 +2,6 @@ app.controller('goalsController', function($scope, goalsFactory){
   //window.a=$scope;
   $scope.goals = goalsFactory.goals;
   $scope.completed = goalsFactory.completed;
-  /*variables in the form*/
-/*  $scope.goalText = goalsFactory.goalText;
-  $scope.typeText = goalsFactory.typeText;
-  $scope.descriptionText = goalsFactory.descriptionText;*/
 
   $scope.addGoal = goalsFactory.addGoal;
   $scope.moveToCompleted = goalsFactory.moveToCompleted;

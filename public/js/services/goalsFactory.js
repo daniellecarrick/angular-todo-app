@@ -59,15 +59,6 @@ app.factory('goalsFactory', function($http, $log){
     image: "http://lorempixel.com/400/300/cats/"
   }
   ];
- /* var goalText = "";
-  var typeText = "";
-  var descriptionText = "";*/
-
-  var addGoal = function(goal) {
-    console.log(goal)
-    goals.push(goal);
-    $log.log("added a goal");
-  }
 
   var moveToCompleted = function(goal) {
     completed.push(goal);
@@ -84,24 +75,47 @@ app.factory('goalsFactory', function($http, $log){
   }*/
 
   var getGoals = function() {
-  return $http.get('/goals')
-    .then(function(response) {
-      angular.copy(response.data, goals);
-      console.log(response.data);
-    }, function(err) {
-      console.error(err)
-    });
-  };
-
-  var deleteGoal = function() {
-    return $http.delete('/delete')
+    return $http.get('/goals')
       .then(function(response) {
+        angular.copy(response.data, goals);
+        console.log(response.data);
+      }, function(err) {
+        console.error(err)
+      });
+    };
 
+  var deleteGoal = function(goal) {
+    return $http.delete('/delete/' + goal._id)
+      .then(function(response) {
+        console.log(response);
+        var index = goals.indexOf(goal);
+        goals.splice(index, 1);
       }, function(err) {
         console.log(err)
-      })
-  }
+      });
+    };
 
+  var addGoal = function(goal) {
+    return $http.post('/goals', goal)
+      .then(function(response) {
+        console.log(response);
+        goals.push(response.data);
+        getGoals();
+        console.log(goals);
+      }, function(err) {
+        console.log(err)
+      });
+    };
+
+  var updateGoal = function(goal) {
+    return $http.put('/goals/' + goal.id)
+      .then(function(response) {
+        console.log(response);
+        goals.push(goal);
+      }, function(err) {
+        console.log(err)
+      });
+    };
   return {
     goals: goals,
     completed: completed,

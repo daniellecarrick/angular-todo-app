@@ -44,7 +44,7 @@ app.post('/goals', function(req, res, next) {
   });
 });
 
-app.delete('/goals/:id', function(req, res, next) {
+app.delete('/delete/:id', function(req, res, next) {
   Goal.remove({ _id: req.params.id }, function(err) {
     if (err) {
       console.error(err)

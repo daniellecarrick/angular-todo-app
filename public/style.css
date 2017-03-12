@@ -52,6 +52,21 @@
   min-height: 220px;
 }
 
+.icons {
+  position: absolute;
+  bottom: 45;
+}
+
+.glyphicon-ok-sign {
+  color: green;
+  font-size: 30px;
+}
+
+.icon .glyphicon {
+  color: darkgrey;
+  cursor: pointer;
+}
+
 .type-indicator {
   display: block;
   height: 20px;
@@ -136,8 +151,5 @@
   margin-bottom: 0px;
 }
 
-.goal-box .glyphicon {
-  color: darkgrey;
-  cursor: pointer;
-}
+
 
