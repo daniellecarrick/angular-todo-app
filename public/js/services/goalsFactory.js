@@ -1,72 +1,72 @@
 app.factory('goalsFactory', function($http, $log){
 
   var goals = [
-  {
-    goal: "Hike the PCT",
+  /*{
+    name: "Hike the PCT",
     type: "travel",
     description: "Cheryl strayed is BAE",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Start my own business",
+    name: "Start my own business",
     type: "career",
     description: "Time to put the business degree to use",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Plant a garden",
+    name: "Plant a garden",
     type: "project",
     description: "Plants are dope",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Live abroad",
+    name: "Live abroad",
     type: "travel",
     description: "For ze experience",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Go skydiving",
+    name: "Go skydiving",
     type: "experience",
     description: "No time for fear",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Adopt a dog",
+    name: "Adopt a dog",
     type: "project",
     description: "Dogs are hella cute",
     image: "http://lorempixel.com/400/300/cats/"
-  }
+  }*/
   ];
 
   var completed = [
   {
-    goal: "Being born",
+    name: "Being born",
     type: "personal",
     description: "A tough day but a good day #thanksmom",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Run a marathon",
+    name: "Run a marathon",
     type: "personal",
     description: "The more you run, the more you can eat",
     image: "http://lorempixel.com/400/300/cats/"
   },
   {
-    goal: "Go to Israel",
+    name: "Go to Israel",
     type: "travel",
     description: "living my best life",
     image: "http://lorempixel.com/400/300/cats/"
   }
   ];
-  var goalText = "";
+ /* var goalText = "";
   var typeText = "";
-  var descriptionText = "";
+  var descriptionText = "";*/
 
-  var addGoal = function(goalText, typeText, descriptionText) {
-    goals.push({goal: goalText, type: typeText, description: descriptionText});
+  var addGoal = function(goal) {
+    console.log(goal)
+    goals.push(goal);
     $log.log("added a goal");
-    $log.log(goalText);
   }
 
   var moveToCompleted = function(goal) {
@@ -76,23 +76,30 @@ app.factory('goalsFactory', function($http, $log){
     console.log("fact was clicked");
   }
 
-  var deleteGoal = function(goal) {
-    /*To do: add an are you sure*/
+/*  var deleteGoal = function(goal) {
+    //To do: add an are you sure
     var index = goals.indexOf(goal);
     goals.splice(index, 1);
     console.log(goals);
-  }
+  }*/
 
-  var changeCompletedGoals = function () {
-    showActiveGoals = true;
-    showCompletedGoals = true;
-    $log.log(showActiveGoals)
-  }
+  var getGoals = function() {
+  return $http.get('/goals')
+    .then(function(response) {
+      angular.copy(response.data, goals);
+      console.log(response.data);
+    }, function(err) {
+      console.error(err)
+    });
+  };
 
-  var changeActiveGoals = function () {
-    showActiveGoals = false;
-    showCompletedGoals = false;
-    $log.log(showActiveGoals)
+  var deleteGoal = function() {
+    return $http.delete('/delete')
+      .then(function(response) {
+
+      }, function(err) {
+        console.log(err)
+      })
   }
 
   return {
@@ -100,8 +107,7 @@ app.factory('goalsFactory', function($http, $log){
     completed: completed,
     moveToCompleted: moveToCompleted,
     deleteGoal: deleteGoal,
-    changeActiveGoals: changeActiveGoals,
-    changeCompletedGoals: changeCompletedGoals,
-    addGoal: addGoal
+    addGoal: addGoal,
+    getGoals: getGoals
   };
 });

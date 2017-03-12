@@ -1,5 +1,5 @@
 app.controller('goalsController', function($scope, goalsFactory){
-  window.a=$scope;
+  //window.a=$scope;
   $scope.goals = goalsFactory.goals;
   $scope.completed = goalsFactory.completed;
   /*variables in the form*/
@@ -10,10 +10,19 @@ app.controller('goalsController', function($scope, goalsFactory){
   $scope.addGoal = goalsFactory.addGoal;
   $scope.moveToCompleted = goalsFactory.moveToCompleted;
   $scope.deleteGoal = goalsFactory.deleteGoal;
-
   $scope.showActiveGoals = true;
   $scope.showCompletedGoals = true;
-  $scope.changeCompletedGoals = goalsFactory.changeCompletedGoals;
-  $scope.changeActiveGoals = goalsFactory.changeActiveGoals;
-  $scope.show=false;
+
+  $scope.changeCompletedGoals = function () {
+    $scope.showActiveGoals = true;
+    $scope.showCompletedGoals = true;
+  }
+
+  $scope.changeActiveGoals = function () {
+    $scope.showActiveGoals = false;
+    $scope.showCompletedGoals = false;
+  }
+
+  $scope.getGoals = goalsFactory.getGoals;
+  $scope.getGoals();
 })
