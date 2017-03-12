@@ -17,9 +17,9 @@
       </ul>
     </div>
   </nav>
-  <div class="quote-container">
+  <div class="quote-container" ng-controller="quotesController">
     <div class="container">
-      <div class="quote">"It does not matter how slowly you go as long as you do not stop"</div>
+      <div class="quote" ng-model="currentMessage">"{{quotes[index]}}"</div>
     </div>
   </div>
   <div class="container">
@@ -79,7 +79,9 @@
               <div class="icons">
                 <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
                 <span class="glyphicon glyphicon-pencil" ng-click="updateGoal(goal)" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-ok-sign" ng-click="moveToCompleted(goal)" aria-hidden="true"></span>
+                <button type="button" class="btn" ng-click="moveToCompleted(goal)">I did it!
+                  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                </button>
               </div>
             </div>
           </div>
@@ -103,5 +105,7 @@
   <script src="js/app.js"></script>
   <script src="js/services/goalsFactory.js"></script>
   <script src="js/controllers/goalsController.js"></script>
+  <script src="js/services/quotesService.js"></script>
+  <script src="js/controllers/quotesController.js"></script>
   </body>
 </html>

@@ -30,6 +30,10 @@ app.factory('goalsFactory', function($http, $log){
     console.log("fact was clicked");
   }
 
+  var getCompleted = function() {
+
+  }
+
   var getGoals = function() {
     return $http.get('/goals')
       .then(function(response) {
