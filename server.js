@@ -40,6 +40,7 @@ app.post('/goals', function(req, res, next) {
   });
 });
 
+// DELETE a goal
 app.delete('/delete/:id', function(req, res, next) {
   Goal.remove({ _id: req.params.id }, function(err) {
     if (err) {
@@ -51,11 +52,24 @@ app.delete('/delete/:id', function(req, res, next) {
   });
 });
 
-app.put('/goals/:id', function(req, res, next) {
+// UPDATE goal
+/*app.put('/goals/:id', function(req, res, next) {
   Goal.findOneAndUpdate({ _id: req.param.id }, req.body, function(err, goal) {
     if (err) {
       console.error(err)
       return next(err);
+    } else {
+      res.send(goal);
+    }
+  });
+});*/
+
+app.put('/goals/:id/complete', function(req, res, next) {
+  req.body.completed = true;
+  Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
+    if (error) {
+      console.error(error)
+      return next(error);
     } else {
       res.send(goal);
     }

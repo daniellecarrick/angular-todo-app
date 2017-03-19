@@ -11,6 +11,10 @@
   background-color: darkorange;
 }
 
+.add-goal-btn .glyphicon {
+  color: white;
+}
+
 /* Styles for Add a goal overlay */
 .add-goal-container {
     background-color: rgba(0,0,0,0.2);
@@ -50,11 +54,13 @@
   margin-bottom: 30px;
   border-radius: 0px 0px 3px 3px;
   min-height: 220px;
+  position: relative;
 }
 
 .icons {
   position: absolute;
-  bottom: 45;
+  bottom: 20;
+  width: 80%;
 }
 
 .icon .glyphicon-ok-sign {
@@ -116,6 +122,10 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.complete-btn .glyphicon {
+  color: white;
 }
 
 /* Quote container */

@@ -56,9 +56,9 @@
     </div>
       <div class="col-sm-12">
       <div class="title-container">
-        <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="changeCompletedGoals()">{{goals.length}} Active goals</h1>
+        <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="goalsViewToggle()">{{goals.length}} Active goals</h1>
         <h1 class="title">/</h1>
-        <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="changeActiveGoals()">{{completed.length}} Completed goals</h1>
+        <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="goalsViewToggle()">{{completed.length}} Completed goals</h1>
       </div>
         <div class="pull-left pills-container">
           <span class="pills career">career</span>
@@ -70,17 +70,17 @@
         </div>
       </div>
       <!-- ACTIVE GOALS -->
-      <div class="row goals-container" ng-show="showActiveGoals">
-        <div ng-repeat="goal in goals">
+      <div class="row goals-container">
+        <div ng-repeat="goal in goals | filter: goalsViewToggle track by goal._id ">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
             <div class="goal-box">
-              <h3 contenteditable="true" ng-model="goal.name">{{ goal.name }}</h3>
-              <p contenteditable="true" ng-model="goal.description">{{ goal.description }}</p>
-              <div class="icons">
+              <h3 ng-attr-contenteditable="{{editable}}" ng-model="goal.name" ng-focus="wasitclicked(goal)">{{ goal.name }}</h3>
+              <p ng-attr-contenteditable="{{editable}}" ng-model="goal.description">{{ goal.description }}</p> {{ goal.completed }}
+              <div ng-if="!goalsViewToggle" class="icons">
                 <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-pencil" ng-click="updateGoal(goal)" aria-hidden="true"></span>
-                <button type="button" class="btn" ng-click="moveToCompleted(goal)">I did it!
+                <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" aria-hidden="true"></span>
+                <button type="button" class="btn complete-btn pull-right" ng-click="moveToCompleted(goal, $index)">I did it!
                   <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                 </button>
               </div>
@@ -90,7 +90,7 @@
       </div>
 
     <!-- COMPLETED GOALS -->
-    <div class="row goals-container" ng-hide="showActiveGoals">
+<!--     <div class="row goals-container" ng-hide="showActiveGoals">
        <div ng-repeat="goal in completed">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase}}</span>
@@ -100,7 +100,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
   </div>
   <script src="js/app.js"></script>
   <script src="js/services/goalsFactory.js"></script>

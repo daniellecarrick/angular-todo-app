@@ -2,7 +2,7 @@ app.factory('goalsFactory', function($http, $log){
 
   var goalsFactory = {}; //add boolean to schema to deal with active and completed then use a filter
 
-  var completed = [
+  /*var completed = [
   {
     name: "Being born",
     type: "personal",
@@ -21,7 +21,7 @@ app.factory('goalsFactory', function($http, $log){
     description: "living my best life",
     image: "http://lorempixel.com/400/300/cats/"
   }
-  ];
+  ];*/
 /*
   var moveToCompleted = function(goal) {
     completed.push(goal);
@@ -57,15 +57,27 @@ app.factory('goalsFactory', function($http, $log){
         return response.data;
         /*goals.push(response.data);*/
         getGoals();
-        console.log(goals);
+        //console.log(goals);
       }, function(err) {
         console.log(err)
       });
     };
 
-  goalsFactory.updateGoal = function(goal) {
-    console.log("updateGoal was clicked")
+  // Change completed boolean to true
+  goalsFactory.moveToCompleted = function(goal) {
+   // console.log(goal.completed);
+    return $http.put('/goals/' + goal._id + '/complete', goal)
+      .then(function(response) {
+        return response.data
+      })
   }
+
+  goalsFactory.updateGoal = function(goal) {
+    return $http.put('/goals/' + goal._id, goal)
+      .then(function(response) {
+        return response.data
+      });
+  };
 
   return goalsFactory;
 });
