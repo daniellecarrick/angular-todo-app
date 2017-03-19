@@ -57,6 +57,11 @@
   position: relative;
 }
 
+.edit {
+  background-color: white;
+  border-bottom: 1px solid grey;
+}
+
 .icons {
   position: absolute;
   bottom: 20;

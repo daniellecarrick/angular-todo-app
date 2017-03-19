@@ -1,23 +1,14 @@
 app.controller('goalsController', function($scope, goalsFactory){
   //window.a=$scope;
-  $scope.editable = true;
+  $scope.editable = false;
 
   // A variable to store the goal that is being edited in case the serve f*&$ up
   var temporaryGoal;
 
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
-  $scope.showCompletedGoals = true;
-
-  $scope.changeCompletedGoals = function () {
-    $scope.showActiveGoals = true;
-    $scope.showCompletedGoals = true;
-  }
-
-  $scope.changeActiveGoals = function () {
-    $scope.showActiveGoals = false;
-    $scope.showCompletedGoals = false;
-  }
+  //$scope.showCompletedGoals = true;
+  //$scope.editmode = false;
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
@@ -42,6 +33,8 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object. because yohai COMMANDED!
+    $scope.editable = true;
+    console.log($scope.editable);
     temporaryGoal = angular.copy(goalToEdit);
     console.log(goalToEdit);
   }
