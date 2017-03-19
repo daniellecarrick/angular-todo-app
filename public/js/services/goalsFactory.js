@@ -1,6 +1,6 @@
 app.factory('goalsFactory', function($http, $log){
 
-  var goals = [];
+  var goals = []; //add boolean to schema to dealw ith active and completed then use a filter
 
   var completed = [
   {

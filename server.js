@@ -66,6 +66,6 @@ app.put('/goals/:id', function(req, res, next) {
   });
 });
 
-app.listen(8000, function() {
+app.listen(8050, function() {
   console.log("Life goaling over here")
 });
