@@ -1,6 +1,6 @@
 app.factory('goalsFactory', function($http, $log){
 
-  var goals = []; //add boolean to schema to dealw ith active and completed then use a filter
+  var goalsFactory = {}; //add boolean to schema to deal with active and completed then use a filter
 
   var completed = [
   {
@@ -22,44 +22,40 @@ app.factory('goalsFactory', function($http, $log){
     image: "http://lorempixel.com/400/300/cats/"
   }
   ];
-
+/*
   var moveToCompleted = function(goal) {
     completed.push(goal);
     var index = goals.indexOf(goal);
     goals.splice(index, 1);
     console.log("fact was clicked");
-  }
+  }*/
 
-  var getCompleted = function() {
 
-  }
-
-  var getGoals = function() {
+  goalsFactory.getGoals = function() {
     return $http.get('/goals')
       .then(function(response) {
-        angular.copy(response.data, goals);
-        console.log(response.data);
+        return response.data;
       }, function(err) {
         console.error(err)
       });
     };
 
-  var deleteGoal = function(goal) {
+  goalsFactory.deleteGoal = function(goal) {
     return $http.delete('/delete/' + goal._id)
       .then(function(response) {
-        console.log(response);
-        var index = goals.indexOf(goal);
-        goals.splice(index, 1);
+        return response.data;
+        /*var index = goals.indexOf(goal);
+        goals.splice(index, 1);*/
       }, function(err) {
         console.log(err)
       });
     };
 
-  var addGoal = function(goal) {
+  goalsFactory.addGoal = function(goal) {
     return $http.post('/goals', goal)
       .then(function(response) {
-        console.log(response);
-        goals.push(response.data);
+        return response.data;
+        /*goals.push(response.data);*/
         getGoals();
         console.log(goals);
       }, function(err) {
@@ -67,17 +63,9 @@ app.factory('goalsFactory', function($http, $log){
       });
     };
 
-  var updateGoal = function(goal) {
+  goalsFactory.updateGoal = function(goal) {
     console.log("updateGoal was clicked")
   }
 
-  return {
-    goals: goals,
-    completed: completed,
-    moveToCompleted: moveToCompleted,
-    deleteGoal: deleteGoal,
-    addGoal: addGoal,
-    getGoals: getGoals,
-    updateGoal: updateGoal
-  };
+  return goalsFactory;
 });

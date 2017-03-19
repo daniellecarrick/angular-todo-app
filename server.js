@@ -28,17 +28,13 @@ app.get('/goals', function(req, res, next) {
   });
 });
 
-
-/*app.post('/goals', function (req, res, next) {
-  res.send('POST!');
-});*/
-
 app.post('/goals', function(req, res, next) {
   Goal.create(req.body, function(error, goal) {
     if (error) {
       console.error(error)
       return next(error);
     } else {
+      console.log(goal);
       res.json(goal);
     }
   });
@@ -67,5 +63,5 @@ app.put('/goals/:id', function(req, res, next) {
 });
 
 app.listen(8050, function() {
-  console.log("Life goaling over here")
+  console.log("Life goaling over here. Boot up 8050")
 });
