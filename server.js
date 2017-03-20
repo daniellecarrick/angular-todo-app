@@ -65,7 +65,7 @@ app.put('/goals/:id/complete', function(req, res, next) {
 });
 
 app.put('/goals/:id', function(req, res, next) {
-  //req.body.completed = true;
+  // new means we want the updated object returned rather than the original one
   Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
     if (error) {
       console.error(error)

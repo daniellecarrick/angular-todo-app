@@ -40,6 +40,7 @@
   position: absolute;
   top: 10;
   right: 10;
+  color: white;
 }
 
 /* Style for goal boxes */
@@ -74,7 +75,7 @@
 }
 
 .glyphicon {
-  color: darkgrey;
+  color: white;
   cursor: pointer;
 }
 

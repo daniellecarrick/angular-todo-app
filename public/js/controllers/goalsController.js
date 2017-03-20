@@ -34,7 +34,7 @@ app.controller('goalsController', function($scope, goalsFactory){
     $scope.editable = true;
     //console.log($scope.editable);
     temporaryGoal = angular.copy(goalToEdit);
-    console.log("edit goal" + goalToEdit.name);
+   // console.log("edit goal" + goalToEdit.name);
   }
 
   $scope.moveToCompleted = function(goal) {
@@ -51,16 +51,10 @@ app.controller('goalsController', function($scope, goalsFactory){
   }
 
   $scope.updateGoal = function(goal) {
-
     goalsFactory.updateGoal(goal)
-      .then(function(goal) {
+      .catch( function(err) {
         var index = $scope.goals.indexOf(goal);
-        console.log(index);
-        $scope.goals[index] = goal;
-
-
-        console.log("temporary goal" + temporaryGoal);
-      }, function(err) {
+        // if there is a problem on the server, revert back to the temporary goal
         $scope.goals[index] = temporaryGoal;
         alert("updated goal didn't work. ask yohai")
       })
