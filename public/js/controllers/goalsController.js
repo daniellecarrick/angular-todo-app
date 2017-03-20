@@ -34,9 +34,9 @@ app.controller('goalsController', function($scope, goalsFactory){
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object. because yohai COMMANDED!
     $scope.editable = true;
-    console.log($scope.editable);
+    //console.log($scope.editable);
     temporaryGoal = angular.copy(goalToEdit);
-    console.log(goalToEdit);
+    console.log("edit goal" + goalToEdit.name);
   }
 
   $scope.moveToCompleted = function(goal, index) {
@@ -45,9 +45,22 @@ app.controller('goalsController', function($scope, goalsFactory){
         $scope.goals[index] = goal;
       }, function(err) {
         $scope.goals[index] = temporaryGoal;
-        alert("it didn't work. ask yohai")
+        alert("move to completed goal didn't work. ask yohai")
       })
-    console.log(goal.completed);
+    console.log("move to completed" + goal.name);
+  }
+
+  $scope.updateGoal = function(goal, index) {
+    goalsFactory.updateGoal(goal)
+      .then(function(goal) {
+        $scope.goals[index] = goal;
+        console.log("temporary goal" + temporaryGoal);
+      }, function(err) {
+        $scope.goals[index] = temporaryGoal;
+        alert("updated goal didn't work. ask yohai")
+      })
+    console.log("update goal" + goal.name);
+    $scope.editable = false;
   }
 
 /*    $scope.moveToCompleted = function(goal, index) {
@@ -60,9 +73,9 @@ app.controller('goalsController', function($scope, goalsFactory){
   }*/
 
   // function for debugging
-  $scope.wasitclicked = function(goal) {
+/*  $scope.wasitclicked = function(goal) {
    console.log("editable goal was clicked");
-  }
+  }*/
 
   // Adds the goals to an array called array
   goalsFactory.getGoals().then(function(goals) {

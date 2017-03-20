@@ -64,6 +64,18 @@ app.put('/goals/:id/complete', function(req, res, next) {
   });
 });
 
+app.put('/goals/:id', function(req, res, next) {
+  //req.body.completed = true;
+  Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
+    if (error) {
+      console.error(error)
+      return next(error);
+    } else {
+      res.send(goal);
+    }
+  });
+});
+
 app.listen(8050, function() {
   console.log("Life goaling over here. Boot up 8050")
 });

@@ -75,15 +75,23 @@
         <div ng-repeat="goal in goals | filter: !showActiveGoals track by goal._id ">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box">
-              <h3 ng-attr-contenteditable="{{editable}}" ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">{{ goal.name }}</h3>
-              <p ng-attr-contenteditable="{{editable}}" ng-class="{edit: editable}" ng-model="goal.description">{{ goal.description }}</p> {{ goal.completed }}
+            <div class="goal-box"> {{ goal.name}}
+              <input ng-attr-contenteditable="{{editable}}" ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">
+              <input ng-class="{edit: editable}" ng-model="goal.description" />
               <div ng-if="showActiveGoals" class="icons">
-                <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
+              <!-- edit buttons -->
                 <button type="button" class="btn">
                   <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" aria-hidden="true"></span>
-                  <span ng-if="editable">save</span>
                 </button>
+                <span ng-if="editable">
+                  <button type="button" class="btn" ng-click="updateGoal(goal, $index)">
+                    <span>save</span>
+                  </button>
+                  <button type="button" class="btn">
+                    <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
+                  </button>
+                </span>
+                <!-- complete button -->
                 <button type="button" class="btn complete-btn pull-right" ng-click="moveToCompleted(goal, $index)">I did it!
                   <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                 </button>
