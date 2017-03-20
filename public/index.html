@@ -84,7 +84,7 @@
                   <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" aria-hidden="true"></span>
                 </button>
                 <span ng-if="editable">
-                  <button type="button" class="btn" ng-click="updateGoal(goal, $index)">
+                  <button type="button" class="btn" ng-click="updateGoal(goal)">
                     <span>save</span>
                   </button>
                   <button type="button" class="btn">
@@ -92,7 +92,7 @@
                   </button>
                 </span>
                 <!-- complete button -->
-                <button type="button" class="btn complete-btn pull-right" ng-click="moveToCompleted(goal, $index)">I did it!
+                <button type="button" class="btn complete-btn pull-right" ng-click="moveToCompleted(goal)">I did it!
                   <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                 </button>
               </div>

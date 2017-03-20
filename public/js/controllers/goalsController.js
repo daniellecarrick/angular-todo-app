@@ -7,8 +7,6 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
-  //$scope.showCompletedGoals = true;
-  //$scope.editmode = false;
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
@@ -39,9 +37,11 @@ app.controller('goalsController', function($scope, goalsFactory){
     console.log("edit goal" + goalToEdit.name);
   }
 
-  $scope.moveToCompleted = function(goal, index) {
+  $scope.moveToCompleted = function(goal) {
     goalsFactory.moveToCompleted(goal)
       .then(function(goal) {
+        var index = $scope.goals.indexOf(goal);
+        console.log(index);
         $scope.goals[index] = goal;
       }, function(err) {
         $scope.goals[index] = temporaryGoal;
@@ -50,10 +50,15 @@ app.controller('goalsController', function($scope, goalsFactory){
     console.log("move to completed" + goal.name);
   }
 
-  $scope.updateGoal = function(goal, index) {
+  $scope.updateGoal = function(goal) {
+
     goalsFactory.updateGoal(goal)
       .then(function(goal) {
+        var index = $scope.goals.indexOf(goal);
+        console.log(index);
         $scope.goals[index] = goal;
+
+
         console.log("temporary goal" + temporaryGoal);
       }, function(err) {
         $scope.goals[index] = temporaryGoal;
