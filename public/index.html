@@ -60,7 +60,7 @@
             </div>
             <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
             <button type="button" class="btn btn-default" ng-click="show=!show">Cancel</button>
-            <button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)">Delete
+            <button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)" ng-if="editable">Delete
               <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             </button>
           </form>
