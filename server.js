@@ -40,6 +40,27 @@ app.post('/goals', function(req, res, next) {
   });
 });
 
+// Add a review
+app.post('/goals/:id/reviews', function(req, res, next) {
+  Goal.findById(req.params.id, function(err, foundGoal) {
+    if (err) {
+      console.error(err);
+      return next(err);
+    } else if (!foundGoal) {
+      return res.send("Error! No beer found with that ID");
+    } else {
+      foundGoal.reviews.push(req.body)
+      foundGoal.save(function(err, updatedGoal) {
+        if (err) {
+          return next(err);
+        } else {
+          res.send(updatedGoal);
+        }
+      });
+    }
+  });
+});
+
 // DELETE a goal
 app.delete('/delete/:id', function(req, res, next) {
   Goal.remove({ _id: req.params.id }, function(err) {
