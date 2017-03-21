@@ -9,9 +9,9 @@
     <title>Goalie</title>
   </head>
   <body ng-controller="goalsController" class="ng-cloak">
-      <!--***************
-      *** PRIMARY NAV ***
-      ****************-->
+<!--***************
+*** PRIMARY NAV ***
+****************-->
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -23,19 +23,20 @@
       </ul>
     </div>
   </nav>
+  <!--displays a random quote -->
   <div class="quote-container" ng-controller="quotesController"> <!--ask hadas about directives-->
     <div class="container">
       <div class="quote" ng-model="currentMessage">"{{quotes[index]}}"</div>
     </div>
   </div>
   <div class="container">
-      <!--***************************************
-      *** MODAL FOR ADDIDNG AND EDITING GOALS ***
-      ****************************************-->
+<!--***************************************
+*** MODAL FOR ADDING AND EDITING GOALS ***
+****************************************-->
     <div class="row add-goal-container" ng-show="show">
       <div class="add-goal-form-container">
         <div>
-          <h1 class="text-center">Add a new goal</h1>
+          <h1 class="text-center" ng-if="!editable">Add a new goal</h1>
           <h1 class="text-center" ng-if="editable">Edit goal</h1>
           <span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           {{goal}}
@@ -90,12 +91,12 @@
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
             <div class="goal-box"> {{ goal.name}}
-              <input ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">
-              <input ng-class="{edit: editable}" ng-model="goal.description" />
+              <input ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode"></input>
+              <input ng-class="{edit: editable}" ng-model="goal.description"></input>
               <div ng-if="showActiveGoals" class="icons">
               <!-- edit buttons -->
-                <button type="button" class="btn">
-                  <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" ng-click="show=!show" aria-hidden="true"></span>
+                <button type="button" class="btn" ng-click="editGoal(goal)"> {{ show }}
+                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </button>
                 <span ng-if="editable">
                   <button type="button" class="btn" ng-click="updateGoal(goal)">
