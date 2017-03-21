@@ -3,6 +3,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
       <script src="angular/angular.js"></script> <!--need it at the top to use ng-cloak-->
     <title>Goalie</title>
   </head>
@@ -88,12 +90,12 @@
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
             <div class="goal-box"> {{ goal.name}}
-              <input ng-attr-contenteditable="{{editable}}" ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">
+              <input ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">
               <input ng-class="{edit: editable}" ng-model="goal.description" />
               <div ng-if="showActiveGoals" class="icons">
               <!-- edit buttons -->
                 <button type="button" class="btn">
-                  <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" ng-click="show=!show" aria-hidden="true"></span>
                 </button>
                 <span ng-if="editable">
                   <button type="button" class="btn" ng-click="updateGoal(goal)">
