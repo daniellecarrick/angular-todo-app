@@ -59,7 +59,10 @@
               <input type="text" class="form-control" placeholder="Describe the goal" ng-model="goal.description"></input>
             </div>
             <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
-            <button type="button" class="btn btn-primary" ng-click="show=!show">Cancel</button>
+            <button type="button" class="btn btn-default" ng-click="show=!show">Cancel</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)">Delete
+              <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            </button>
           </form>
         </div>
       </div>
@@ -90,9 +93,9 @@
         <div ng-repeat="goal in goals | filter: !showActiveGoals track by goal._id ">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box"> {{ goal.name}}
-              <input ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode"></input>
-              <input ng-class="{edit: editable}" ng-model="goal.description"></input>
+            <div class="goal-box">
+              <h3 ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">{{goal.name}}</h3>
+              <p ng-class="{edit: editable}" ng-model="goal.description">{{goal.description}}</p>
               <div ng-if="showActiveGoals" class="icons">
               <!-- edit buttons -->
                 <button type="button" class="btn" ng-click="editGoal(goal)"> {{ show }}
@@ -101,9 +104,6 @@
                 <span ng-if="editable">
                   <button type="button" class="btn" ng-click="updateGoal(goal)">
                     <span>save</span>
-                  </button>
-                  <button type="button" class="btn">
-                    <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
                   </button>
                 </span>
                 <!-- complete button -->
