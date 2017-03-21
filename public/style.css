@@ -19,7 +19,7 @@
 .add-goal-container {
     background-color: rgba(0,0,0,0.2);
     position: fixed;
-    width: 100%;
+    width: 105%;
     height: 100%;
     top: 0;
     left: 0;
@@ -50,7 +50,8 @@
 }
 
 .goal-box {
-  background-color: #F0F0F0;
+  background-color: #fcfcfc;
+  border: 1px solid #f0f0f0;
   padding: 5px 20px;
   margin-bottom: 30px;
   border-radius: 0px 0px 3px 3px;
@@ -141,11 +142,11 @@
 /* Quote container */
 
 .quote-container {
-  background-color: #F0F0F0;
+  background-color: #fcfcfc;
   margin-bottom: 50px;
   font-size: 40px;
   padding:30px;
-  border-bottom: 4px solid darkgrey;
+  border-bottom: 4px solid #f0f0f0;
 }
 
 /* Toggle buttons */
