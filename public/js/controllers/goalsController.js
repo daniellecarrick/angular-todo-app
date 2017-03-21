@@ -15,6 +15,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   }*/
   // Add a goal
   $scope.addGoal = function(newgoal) {
+    $scope.editable = false;
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
     }, function(err) {
@@ -24,6 +25,7 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Delete a goal
   $scope.deleteGoal = function(goalToDelete) {
+    $scope.editable = false;
     goalsFactory.deleteGoal(goalToDelete).then(function(goal) {
       for (var i = 0; i < $scope.goals.length; i++) {
         if ($scope.goals[i]._id = goal._id) {
