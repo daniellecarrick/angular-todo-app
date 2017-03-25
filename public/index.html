@@ -74,7 +74,8 @@
           <!--<span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
           {{temporaryGoal}}
           <!-- Form for adding goals -->
-          <form ng-submit="updateGoal(goal)">
+          <!-- <form ng-submit="updateGoal(temporaryGoal)"> -->
+          <form>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Goal" ng-model="temporaryGoal.name"></input>
             </div>
@@ -92,7 +93,7 @@
               <input type="text" class="form-control" placeholder="Describe the goal" ng-model="temporaryGoal.description"></input>
             </div>
            <!-- <button type="submit" class="btn btn-primary" ng-click="show=!show" ng-if="!editable">Add</button> -->
-            <button type="button" class="btn btn-primary" ng-click="updateGoal(goal)">Update</button>
+            <button type="button" class="btn btn-primary" ng-click="updateGoal(temporaryGoal)">Update</button>
             <button type="button" class="btn btn-default" ng-click="show=!show">Cancel</button>
             <button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)">Delete
               <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>

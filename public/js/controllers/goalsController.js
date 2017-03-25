@@ -62,6 +62,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   }
 
   $scope.updateGoal = function(goal) {
+    console.log(goal);
     goalsFactory.updateGoal(goal)
       .catch( function(err) {
         var index = $scope.goals.indexOf(goal);
