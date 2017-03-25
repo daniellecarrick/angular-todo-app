@@ -3,7 +3,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   $scope.editable = false;
 
   // A variable to store the goal that is being edited in case the serve f*&$ up
-  var temporaryGoal;
+  $scope.temporaryGoal;
   $scope.show = false;
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
@@ -18,6 +18,7 @@ app.controller('goalsController', function($scope, goalsFactory){
     $scope.editable = false;
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
+      $scope.show = false;
     }, function(err) {
       console.log(err);
     });
@@ -40,8 +41,10 @@ app.controller('goalsController', function($scope, goalsFactory){
     // set temporaryGoal to a copy of the original goal object. because yohai COMMANDED!
     $scope.editable = true;
     $scope.show = true;
-    console.log("edit was clicked");
-    temporaryGoal = angular.copy(goalToEdit);
+    var index = $scope.goals.indexOf(goalToEdit);
+    $scope.temporaryGoal = angular.copy(goalToEdit);
+    console.log($scope.temporaryGoal);
+    console.log(goalToEdit);
    // console.log("edit goal" + goalToEdit.name);
   }
 
@@ -52,7 +55,7 @@ app.controller('goalsController', function($scope, goalsFactory){
         console.log(index);
         $scope.goals[index] = goal;
       }, function(err) {
-        $scope.goals[index] = temporaryGoal;
+        $scope.goals[index] = $scope.temporaryGoal;
         alert("move to completed goal didn't work. ask yohai")
       })
     console.log("move to completed" + goal.name);
@@ -63,30 +66,16 @@ app.controller('goalsController', function($scope, goalsFactory){
       .catch( function(err) {
         var index = $scope.goals.indexOf(goal);
         // if there is a problem on the server, revert back to the temporary goal
-        $scope.goals[index] = temporaryGoal;
+        $scope.goals[index] = $scope.temporaryGoal;
         alert("updated goal didn't work. ask yohai")
       })
     console.log("update goal" + goal.name);
     $scope.editable = false;
   }
 
-/*    $scope.moveToCompleted = function(goal, index) {
-    //goal.completed = true;
-    goalsFactory.moveToCompleted(goal)
-      .then(function(completedGoal) {
-        $scope.goals[index] = completedGoal;
-      })
-    console.log(goal.completed);
-  }*/
-
-  // function for debugging
-/*  $scope.wasitclicked = function(goal) {
-   console.log("editable goal was clicked");
-  }*/
-
   // Adds the goals to an array called array
   goalsFactory.getGoals().then(function(goals) {
     $scope.goals = goals;
   });
 
-})
+});
