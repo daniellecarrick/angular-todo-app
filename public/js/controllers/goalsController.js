@@ -27,9 +27,10 @@ app.controller('goalsController', function($scope, goalsFactory){
   // Delete a goal
   $scope.deleteGoal = function(goalToDelete) {
     $scope.editable = false;
-    goalsFactory.deleteGoal(goalToDelete).then(function(goal) {
+    console.log(goalToDelete);
+    goalsFactory.deleteGoal(goalToDelete).then(function(response) {
       for (var i = 0; i < $scope.goals.length; i++) {
-        if ($scope.goals[i]._id = goal._id) {
+        if ($scope.goals[i]._id === goalToDelete._id) {
           $scope.goals.splice(i, 1);
           break;
         }
@@ -90,7 +91,7 @@ app.controller('goalsController', function($scope, goalsFactory){
     });
   }
 
-  // Adds the goals to an array called array
+  // Adds the goals to an array called goals
   goalsFactory.getGoals().then(function(goals) {
     $scope.goals = goals;
   });

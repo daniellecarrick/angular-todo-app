@@ -3,11 +3,11 @@ var router = express.Router();
 var Goal = require("../models/GoalModel");
 
 // Server routes
-app.get('/', function(req, res, next) {
+/*router.get('/', function(req, res, next) {
   res.send('Testing Server')
-})
+})*/
 
-app.get('/goals', function(req, res, next) {
+router.get('/', function(req, res, next) {
   Goal.find(function (error, goals) {
     if (error) {
       console.error(error)
@@ -19,7 +19,7 @@ app.get('/goals', function(req, res, next) {
   });
 });
 
-app.post('/goals', function(req, res, next) {
+router.post('/', function(req, res, next) {
   Goal.create(req.body, function(error, goal) {
     if (error) {
       console.error(error)
@@ -32,7 +32,7 @@ app.post('/goals', function(req, res, next) {
 });
 
 // Add a review
-app.post('/goals/:id/reviews', function(req, res, next) {
+router.post('/:id/reviews', function(req, res, next) {
   Goal.findById(req.params.id, function(err, foundGoal) {
     if (err) {
       console.error(err);
@@ -53,7 +53,7 @@ app.post('/goals/:id/reviews', function(req, res, next) {
 });
 
 // DELETE a goal
-app.delete('/delete/:id', function(req, res, next) {
+router.delete('/delete/:id', function(req, res, next) {
   Goal.remove({ _id: req.params.id }, function(err) {
     if (err) {
       console.error(err)
@@ -64,7 +64,7 @@ app.delete('/delete/:id', function(req, res, next) {
   });
 });
 
-app.put('/goals/:id/complete', function(req, res, next) {
+router.put('/:id/complete', function(req, res, next) {
   req.body.completed = true;
   Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
     if (error) {
@@ -76,7 +76,7 @@ app.put('/goals/:id/complete', function(req, res, next) {
   });
 });
 
-app.put('/goals/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
   // new means we want the updated object returned rather than the original one
   Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
     if (error) {
