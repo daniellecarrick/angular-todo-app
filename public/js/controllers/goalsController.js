@@ -60,9 +60,9 @@ app.controller('goalsController', function($scope, goalsFactory){
       })
     console.log("move to completed" + goal.name);
   }
-
+/*
   $scope.updateGoal = function(goal) {
-    console.log(goal);
+    console.log("update was clicked in controller");
     goalsFactory.updateGoal(goal)
       .catch( function(err) {
         var index = $scope.goals.indexOf(goal);
@@ -71,7 +71,23 @@ app.controller('goalsController', function($scope, goalsFactory){
         alert("updated goal didn't work. ask yohai")
       })
     console.log("update goal" + goal.name);
-    $scope.editable = false;
+    //$scope.editable = false;
+  }*/
+
+  $scope.updateGoal = function(goalToUpdate) {
+    console.log("update was clicked in controller");
+    goalsFactory.updateGoal(goalToUpdate).then(function(updatedGoal) {
+      var index = $scope.goals.indexOf(updatedGoal); /// Lama lo oved
+      console.log(index);
+      $scope.goals[index] = updatedGoal;
+      $scope.show = false;
+    }, function(err) {
+      console.log(err);
+      var index = $scope.goals.indexOf(goal);
+        // if there is a problem on the server, revert back to the temporary goal
+      $scope.goals[index] = $scope.temporaryGoal;
+      alert("updated goal didn't work. ask yohai")
+    });
   }
 
   // Adds the goals to an array called array
