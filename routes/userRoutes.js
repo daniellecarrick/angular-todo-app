@@ -13,7 +13,10 @@ router.post('/register', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      res.send(req.user);
+      console.log('req.user', req.user);
+      console.log('user', user);
+      // this defiens what is returned in response.data
+      res.send(req.user.username);
     });
   });
 });
@@ -27,6 +30,15 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 router.get('/logout', function(req, res) {
   req.logout();
   res.send('Logged Out');
+});
+
+router.get('/currentuser', function(req, res) {
+  // if there is a current user, give us their username
+  if (req.user) {
+    res.send(req.user.username)
+  } else {
+    res.send(null)
+  }
 });
 
 module.exports = router;

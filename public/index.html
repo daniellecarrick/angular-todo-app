@@ -7,6 +7,7 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
       <script src="angular/angular.js"></script> <!--need it at the top to use ng-cloak-->
     <title>Goalie</title>
+    <base href='/' />
   </head>
   <body ng-controller="goalsController" class="ng-cloak">
 <!--***************
@@ -19,137 +20,33 @@
       </div>
       <!-- Add a new goal button -->
       <ul class="nav navbar-nav navbar-right">
-          <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
+        <li ng-controller="masterController" class="navbar-text">{{ currentUser.username }}</li>
+        <!-- if a user is logged in, show the logout button -->
+        <li ng-show="currentUser.username"><a href="#" ng-click='logout()'>Logout</a></li>
+        <li ng-hide="currentUser.username"><a href="#" ng-click='login()'>Login</a></li>
+        <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
       </ul>
     </div>
   </nav>
   <!--displays a random quote -->
-<!--   <div class="quote-container" ng-controller="quotesController">
-    <div class="container">
-      <div class="quote" ng-model="currentMessage">"{{quotes[index]}}"</div>
-    </div>
-  </div> -->
-  <div quotes-directive class="quote-container">
-  </div>
+
+  <div quotes-directive class="quote-container"></div>
+
   <div class="container">
 <!--***************************************
 *** MODAL FOR ADDING AND EDITING GOALS ***
 ****************************************-->
-    <div class="row add-goal-container" ng-show="show">
-      <div class="add-goal-form-container">
-      <span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-      <!--logic for new goal -->
-        <div ng-if="!editable">
-          <h1 class="text-center">Add a new goal</h1>
-          {{goal}}
-          <!-- Form for adding goals -->
-          <form ng-submit="addGoal(goal)">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Goal" ng-model="goal.name"></input>
-            </div>
-            <div class="form-group">
-              <select ng-model="goal.type" class="form-control">
-                <option>Travel</option>
-                <option>Career</option>
-                <option>Personal</option>
-                <option>Project</option>
-                <option>Experience</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Describe the goal" ng-model="goal.description"></input>
-            </div>
-            <button type="submit" class="btn btn-primary" ng-click="show=!show" ng-if="!editable">Add</button>
-            <!--<button type="button" class="btn btn-primary" ng-click="updateGoal(goal)" ng-if="editable">Update</button>
-            <button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)" ng-if="editable">Delete
-              <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            </button>-->
-            <button type="button" class="btn btn-default" ng-click="show=!show; editable=false">Cancel</button>
-          </form>
-        </div>
-        <!-- EDIT GOAL-->
-        <div ng-if="editable">
-          <h1 class="text-center">Edit goal</h1>
-          <!--<span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
-          {{temporaryGoal}}
-          <!-- Form for adding goals -->
-          <!-- <form ng-submit="updateGoal(temporaryGoal)"> -->
-          <form>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Goal" ng-model="temporaryGoal.name"></input>
-            </div>
-            <div class="form-group">
-              <select ng-model="temporaryGoal.type" class="form-control">
-                <option>Travel</option>
-                <option>Career</option>
-                <option>Personal</option>
-                <option>Project</option>
-                <option>Experience</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Describe the goal" ng-model="temporaryGoal.description"></input>
-            </div>
-           <!-- <button type="submit" class="btn btn-primary" ng-click="show=!show" ng-if="!editable">Add</button> -->
-            <button type="button" class="btn btn-primary" ng-click="updateGoal(temporaryGoal); show=!show">Update</button>
-            <button type="button" class="btn btn-default" ng-click="show=!show">Cancel</button>
-            <button type="button" class="btn btn-danger" ng-click="deleteGoal(temporaryGoal)">Delete
-              <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- SUB NAV -->
-      <div class="col-sm-12">
-        <div class="title-container">
-          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{goals.length}} Active goals</h1>
-          <h1 class="title">/</h1>
-          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completed.length}} Completed goals</h1>
-        </div>
-        <div class="pull-left pills-container">
-          <span class="pills career">career</span>
-          <span class="pills personal">personal</span>
-          <span class="pills travel">travel</span>
-          <span class="pills project">project</span>
-          <span class="pills experience">experience</span>
-          <span class="pills other">other</span>
-        </div>
-      </div>
+  <div ui-view ></div>
 
-      <!--******************************************************
-      ********************** ACTIVE GOALS **********************
-      **********************************************************-->
-
-      <div class="row goals-container">
-      <!-- shwActiveGoals toggles between seeing active and completed goals -->
-        <div ng-repeat="goal in goals | filter: !showActiveGoals track by goal._id ">
-          <div class="col-xs-4">
-            <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box">
-              <h3 ng-class="{edit: editable}" ng-bind="goal.name" ng-focus="editmode">{{goal.name}}</h3>
-              <p ng-class="{edit: editable}" ng-model="goal.description">{{goal.description}}</p>
-              <div ng-if="showActiveGoals" class="icons">
-              <!-- edit buttons -->
-                <button type="button" class="btn btn-default" ng-click="editGoal(goal)">
-                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                </button>
-                <!-- complete button -->
-                <button type="button" class="btn btn-default complete-btn pull-right" ng-click="moveToCompleted(goal)">I did it!
-                  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
   </div>
+
   <script src="js/app.js"></script>
   <script src="js/services/goalsFactory.js"></script>
+  <script src="js/services/authFactory.js"></script>
+  <script src="js/controllers/authController.js"></script>
   <script src="js/controllers/goalsController.js"></script>
-  <!--<script src="js/services/quotesService.js"></script> -->
+  <script src="js/controllers/masterController.js"></script>
   <script src="js/controllers/quotesDirective.js"></script>
+  <script src="angular-ui-router/release/angular-ui-router.js"></script>
   </body>
 </html>

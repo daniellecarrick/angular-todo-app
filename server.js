@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express();
+
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -12,13 +12,15 @@ var User = require("./models/UserModel");
 // database name
 mongoose.connect("mongodb://localhost/goalsdb");
 
+var app = express();
+// Tells the program where to find the files
+app.use(express.static('public'));
+app.use(express.static('node_modules'));
 // converts teh request obhect into a friendlier format
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Tells the program where to find the files
-app.use(express.static('public'));
-app.use(express.static('node_modules'));
+
 
 // For user authentication
 app.use(expressSession({
@@ -36,8 +38,29 @@ passport.deserializeUser(User.deserializeUser()); //and here
 //that it should use the routes in 'goalRoutes'
 //and those are in our new goalRoutes.js file
 app.use('/goals', goalRoutes);
+// this means that in the userRoutes file, the program knows to start looking in the users folder
 app.use('/users', userRoutes);
 
+app.all('*', function(req, res) {
+ res.sendFile(__dirname + '/public/index.html')
+});
+
+//error handler to catch 404 and forward to main error handler
+app.use(function(req, res, next) {
+ var err = new Error('Not Found');
+ err.status = 404;
+ next(err);
+});
+
+// main error handler
+// warning - not for use in production code!
+app.use(function(err, req, res, next) {
+ res.status(err.status || 500);
+ res.render('error', {
+   message: err.message,
+   error: err
+ });
+});
 app.listen(8050, function() {
   console.log("Life goaling over here. Boot up 8050")
 });
