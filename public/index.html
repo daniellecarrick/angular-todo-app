@@ -19,11 +19,12 @@
         <span class="navbar-brand">Goalie</span>
       </div>
       <!-- Add a new goal button -->
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-controller="masterController" class="navbar-text">{{ currentUser.username }}</li>
+      <ul ng-controller="masterController" class="nav navbar-nav navbar-right">
+        <li  class="navbar-text">{{ currentUser.username }}</li>
         <!-- if a user is logged in, show the logout button -->
         <li ng-show="currentUser.username"><a href="#" ng-click='logout()'>Logout</a></li>
-        <li ng-hide="currentUser.username"><a href="#" ng-click='login()'>Login</a></li>
+        <li ng-hide="currentUser.username"><a href="#" ui-sref="login">Login</a></li>
+        <li ng-hide="currentUser.username"><a href="#" ui-sref="register">Register</a></li>
         <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
       </ul>
     </div>
