@@ -7,21 +7,16 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
   $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: '/templates/mainTemplate.html'
+      templateUrl: '/templates/partial-goals.html'
     })
-    /*
-    .state('beer', {
-      url: '/beers/:id',
-      templateUrl: '/templates/beer.html',
-    })*/
     .state('register', {
       url: '/register',
-      templateUrl: '/templates/register.html',
+      templateUrl: '/templates/partial-register.html',
       controller: 'authController'
     })
     .state('login', {
       url: '/login',
-      templateUrl: '/templates/login.html',
+      templateUrl: '/templates/partial-login.html',
       controller: 'authController'
     })
 

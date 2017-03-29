@@ -20,5 +20,5 @@ app.controller('authController', function($scope, authFactory, $state){
         // if login was unsuccessful alert them with an error message
         alert(err.data);
       });
-
+    }
 });
