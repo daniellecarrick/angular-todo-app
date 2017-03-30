@@ -3,7 +3,7 @@
 ****************************************-->
 <div class="row add-goal-container" ng-show="show">
       <div class="add-goal-form-container">
-      <span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <span ng-click="toggleModal()" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       <!--logic for new goal -->
         <div ng-if="!editable">
           <h1 class="text-center">Add a new goal</h1>
@@ -26,8 +26,8 @@
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Describe the goal" ng-model="goal.description"></input>
             </div>
-            <button type="submit" class="btn btn-primary" ng-click="show=!show" ng-if="!editable">Add</button>
-            <button type="button" class="btn btn-default" ng-click="show=!show; editable=false">Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-click="toggleModal()" ng-if="!editable">Add</button>
+            <button type="button" class="btn btn-default" ng-click="toggleModal(); editable=false">Cancel</button>
           </form>
         </div>
         <!-- EDIT GOAL-->
@@ -56,7 +56,7 @@
             </div>
            <!-- <button type="submit" class="btn btn-primary" ng-click="show=!show" ng-if="!editable">Add</button> -->
             <button type="button" class="btn btn-primary" ng-click="updateGoal(temporaryGoal); show=!show">Update</button>
-            <button type="button" class="btn btn-default" ng-click="show=!show">Cancel</button>
+            <button type="button" class="btn btn-default" ng-click="toggleModal()">Cancel</button>
             <button type="button" class="btn btn-danger" ng-click="deleteGoal(temporaryGoal)">Delete
               <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             </button>
@@ -72,12 +72,13 @@
           <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completed.length}} Completed goals</h1>
         </div>
         <div class="pull-left pills-container">
-          <span class="pills career">career</span>
-          <span class="pills personal">personal</span>
-          <span class="pills travel">travel</span>
-          <span class="pills project">project</span>
-          <span class="pills experience">experience</span>
-          <span class="pills other">other</span>
+          <span class="pills career" ng-click="typeFilter('career')">career</span>
+          <span class="pills personal" ng-click="typeFilter('personal')">personal</span>
+          <span class="pills travel" ng-click="typeFilter('travel')">travel</span>
+          <span class="pills project" ng-click="typeFilter('project')">project</span>
+          <span class="pills experience" ng-click="typeFilter('experience')">experience</span>
+          <span class="pills other" ng-click="typeFilter('other')">other</span>
+          <span class="pills all" ng-click="typeFilter('all')">all</span>
         </div>
       </div>
 
@@ -87,7 +88,7 @@
 
       <div class="row goals-container">
       <!-- shwActiveGoals toggles between seeing active and completed goals -->
-        <div ng-repeat="goal in goals | filter: !showActiveGoals track by goal._id ">
+        <div ng-repeat="goal in goals | filter: type | filter: !showActiveGoals track by goal._id">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
             <div class="goal-box">

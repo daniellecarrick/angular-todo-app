@@ -25,12 +25,11 @@
         <li ng-show="currentUser.username"><a href="#" ng-click='logout()'>Logout</a></li>
         <li ng-hide="currentUser.username"><a href="#" ui-sref="login">Login</a></li>
         <li ng-hide="currentUser.username"><a href="#" ui-sref="register">Register</a></li>
-        <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
+        <li class="add-goal-btn" ng-click="toggleModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
       </ul>
     </div>
   </nav>
   <!--displays a random quote -->
-
   <div quotes-directive class="quote-container"></div>
 
   <div class="container">

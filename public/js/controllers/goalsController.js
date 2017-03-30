@@ -5,14 +5,23 @@ app.controller('goalsController', function($scope, goalsFactory){
   // A variable to store the goal that is being edited in case the serve f*&$ up
   $scope.temporaryGoal;
   $scope.show = false;
+  $scope.toggleModal = function() {
+    $scope.show ^= true;
+  }
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
 
-/*  // need this function to hide/show add goals box bc scope goes down not up
-  $scope.showAddGoal = function() {
-    $scope.show = true;
-    $scope.editable = true;
-  }*/
+  $scope.type;
+  // For filtering the goals by type
+  $scope.typeFilter = function(type) {
+    if (type === 'all') {
+      $scope.type = '';
+    } else {
+      $scope.type = type;
+    }
+    console.log(type);
+  }
+
   // Add a goal
   $scope.addGoal = function(newgoal) {
     $scope.editable = false;

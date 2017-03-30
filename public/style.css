@@ -111,6 +111,10 @@
   background-color: #CCCCCC;
 }
 
+.pills.all {
+  color: darkgrey;
+}
+
 .title {
   display: inline;
   color: #CCCCCC;
@@ -143,7 +147,6 @@
 
 .quote-container {
   background-color: #fcfcfc;
-  margin-bottom: 50px;
   font-size: 40px;
   padding:30px;
   border-bottom: 4px solid #f0f0f0;
