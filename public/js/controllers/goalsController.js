@@ -1,6 +1,11 @@
 app.controller('goalsController', function($scope, goalsFactory){
-  //window.a=$scope;
-  $scope.editable = false;
+
+  /** to dos
+   - create function to handle editabl and show states rather than repeating it in each function
+
+   **/
+
+  $scope.editmode = false;
   $scope.show = false;
 
   // hold index position so we can edit and update goals
@@ -11,6 +16,7 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   $scope.toggleModal = function() {
     $scope.show ^= true;
+    //$scope.editmode ^= true;
   }
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
@@ -28,10 +34,11 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
-    $scope.editable = false;
+    $scope.editmode = false;
+    $scope.show = false;
+
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
-      $scope.show = false;
       $scope.clearFields(newgoal);
     }, function(err) {
       console.log(err);
@@ -51,7 +58,7 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Delete a goal (called when pressing the "Delete" button)
   $scope.deleteGoal = function(goalToDelete) {
-    $scope.editable = false;
+    $scope.editmode = false;
     $scope.show = false;
     console.log(goalToDelete);
     goalsFactory.deleteGoal(goalToDelete).then(function(response) {
@@ -67,7 +74,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   // Edit goal (called when pressing the pencil icon) creates a copy of the goal so it can be updated or deleted
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object
-    $scope.editable = true;
+    $scope.editmode = true;
     $scope.show = true;
     index = $scope.goals.indexOf(goalToEdit);
     console.log("index", index);
@@ -105,7 +112,7 @@ app.controller('goalsController', function($scope, goalsFactory){
         alert("updated goal didn't work. ask yohai")
       })
     console.log("update goal" + goal.name);
-    //$scope.editable = false;
+    //$scope.editmode = false;
   }*/
 
   // Update goal called when "Update" button is clicked in Edit Goal modal
@@ -114,7 +121,7 @@ app.controller('goalsController', function($scope, goalsFactory){
     goalsFactory.updateGoal(goalToUpdate).then(function(updatedGoal) {
       $scope.goals[index] = updatedGoal;
       $scope.show = false;
-      $scope.editable = false;
+      $scope.editmode = false;
     }, function(err) {
       console.log(err);
       var index = $scope.goals.indexOf(goal);
