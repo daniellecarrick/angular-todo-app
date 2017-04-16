@@ -1,10 +1,14 @@
 app.controller('goalsController', function($scope, goalsFactory){
   //window.a=$scope;
   $scope.editable = false;
+  $scope.show = false;
+
+  // hold index position so we can edit and update goals
+  var index;
 
   // A variable to store the goal that is being edited in case the serve f*&$ up
   $scope.temporaryGoal;
-  $scope.show = false;
+
   $scope.toggleModal = function() {
     $scope.show ^= true;
   }
@@ -48,34 +52,38 @@ app.controller('goalsController', function($scope, goalsFactory){
   }
 
   $scope.editGoal = function(goalToEdit) {
-    // set temporaryGoal to a copy of the original goal object. because yohai COMMANDED!
+    // set temporaryGoal to a copy of the original goal object
     $scope.editable = true;
     $scope.show = true;
-    var index = $scope.goals.indexOf(goalToEdit);
+    index = $scope.goals.indexOf(goalToEdit);
+    console.log("index", index);
     $scope.temporaryGoal = angular.copy(goalToEdit);
-    console.log($scope.temporaryGoal);
-    console.log(goalToEdit);
-   // console.log("edit goal" + goalToEdit.name);
+ /*   console.log($scope.temporaryGoal);
+    console.log("goal to edit", goalToEdit);*/
   }
 
   $scope.moveToCompleted = function(goal) {
     goalsFactory.moveToCompleted(goal)
       .then(function(goal) {
-        var index = $scope.goals.indexOf(goal);
+
+        var index = $scope.goals.findIndex(function(_goal){
+          return _goal._id == goal._id;
+        });
         console.log(index);
         $scope.goals[index] = goal;
       }, function(err) {
         $scope.goals[index] = $scope.temporaryGoal;
-        alert("move to completed goal didn't work. ask yohai")
+        alert("move to completed goal didn't work.")
       })
     console.log("move to completed" + goal.name);
   }
-/*
-  $scope.updateGoal = function(goal) {
+
+/*  $scope.updateGoal = function(goalToUpdate) {
     console.log("update was clicked in controller");
-    goalsFactory.updateGoal(goal)
+    console.log(goalToUpdate);
+    goalsFactory.updateGoal(goalToUpdate)
       .catch( function(err) {
-        var index = $scope.goals.indexOf(goal);
+        index = $scope.goals.indexOf(goal);
         // if there is a problem on the server, revert back to the temporary goal
         $scope.goals[index] = $scope.temporaryGoal;
         alert("updated goal didn't work. ask yohai")
@@ -85,10 +93,8 @@ app.controller('goalsController', function($scope, goalsFactory){
   }*/
 
   $scope.updateGoal = function(goalToUpdate) {
-    console.log("update was clicked in controller");
+    //var index = $scope.goals.indexOf(goalToUpdate);
     goalsFactory.updateGoal(goalToUpdate).then(function(updatedGoal) {
-      var index = $scope.goals.indexOf(updatedGoal); /// Lama lo oved
-      console.log(index);
       $scope.goals[index] = updatedGoal;
       $scope.show = false;
     }, function(err) {
@@ -104,5 +110,19 @@ app.controller('goalsController', function($scope, goalsFactory){
   goalsFactory.getGoals().then(function(goals) {
     $scope.goals = goals;
   });
+
+    // count number of active and completed goals
+/*  $scope.activeTally = 6;
+  $scope.completedTally;
+  $scope.tallyGoals = function() {
+    for (i = 0; i < $scope.goals.length; i++) {
+      if ($scope.goals.completed) {
+        $scope.completedTally += 1;
+        console.log($scope.completedTally);
+      }
+    } return $scope.completedTally;
+  }
+
+  $scope.tallyGoals();*/
 
 });

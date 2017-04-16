@@ -34,7 +34,7 @@
         <div ng-if="editable">
           <h1 class="text-center">Edit goal</h1>
           <!--<span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
-          {{temporaryGoal}}
+          {{temporaryGoal}} {{goals.indexOf(goal)}}
           <!-- Form for adding goals -->
           <!-- <form ng-submit="updateGoal(temporaryGoal)"> -->
           <form>
@@ -67,9 +67,9 @@
     <!-- SUB NAV -->
       <div class="col-sm-12">
         <div class="title-container">
-          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{goals.length}} Active goals</h1>
+          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{activeTally}} Active goals</h1>
           <h1 class="title">/</h1>
-          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completed.length}} Completed goals</h1>
+          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completedTally}} Completed goals</h1>
         </div>
         <div class="pull-left pills-container">
           <span class="pills career" ng-click="typeFilter('career')">career</span>
@@ -91,7 +91,7 @@
         <div ng-repeat="goal in goals | filter: type | filter: !showActiveGoals track by goal._id">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box">
+            <div class="goal-box"> {{goals.indexOf(goal)}}
               <h3 ng-class="{edit: editable}" ng-bind="goal.name" ng-focus="editmode">{{goal.name}}</h3>
               <p ng-class="{edit: editable}" ng-model="goal.description">{{goal.description}}</p>
               <div ng-if="showActiveGoals" class="icons">
