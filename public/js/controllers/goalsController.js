@@ -111,7 +111,7 @@ app.controller('goalsController', function($scope, goalsFactory){
         index = $scope.goals.indexOf(goal);
         // if there is a problem on the server, revert back to the temporary goal
         $scope.goals[index] = $scope.temporaryGoal;
-        alert("updated goal didn't work. ask yohai")
+        alert("updated goal didn't work.")
       })
     console.log("update goal" + goal.name);
     //$scope.editmode = false;
@@ -130,7 +130,7 @@ app.controller('goalsController', function($scope, goalsFactory){
       var index = $scope.goals.indexOf(goal);
         // if there is a problem on the server, revert back to the temporary goal
       $scope.goals[index] = $scope.temporaryGoal;
-      alert("updated goal didn't work. ask yohai")
+      alert("updated goal didn't work.")
     });
   }
 
@@ -140,17 +140,25 @@ app.controller('goalsController', function($scope, goalsFactory){
   });
 
     // count number of active and completed goals
-/*  $scope.activeTally = 6;
-  $scope.completedTally;
-  $scope.tallyGoals = function() {
+  //$scope.activeTally = 6;
+  //$scope.completedTally;
+  /*$scope.tallyGoals = function() {
     for (i = 0; i < $scope.goals.length; i++) {
       if ($scope.goals.completed) {
         $scope.completedTally += 1;
         console.log($scope.completedTally);
       }
     } return $scope.completedTally;
+  }*/
+
+  $scope.completedGoals = function() {
+    var count = 0;
+    angular.forEach($scope.goals, function(goal) {
+        count += goal.completed ? 1 : 0;
+    })
+    return count;
   }
 
-  $scope.tallyGoals();*/
+  //$scope.tallyGoals();
 
 });

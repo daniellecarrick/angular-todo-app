@@ -34,7 +34,7 @@
         <div ng-if="editmode">
           <h1 class="text-center">Edit goal</h1>
           <!--<span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
-          {{temporaryGoal}} {{goals.indexOf(goal)}}
+          {{temporaryGoal}}
           <!-- Form for adding goals -->
           <!-- <form ng-submit="updateGoal(temporaryGoal)"> -->
           <form>
@@ -64,12 +64,15 @@
         </div>
       </div>
     </div>
-    <!-- SUB NAV -->
+
+    <!--****************************
+    ********** SUB NAV *************-->
+
       <div class="col-sm-12">
         <div class="title-container">
-          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{activeTally}} Active goals</h1>
+          <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{goals.length - completedGoals()}} Active goals</h1>
           <h1 class="title">/</h1>
-          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completedTally}} Completed goals</h1>
+          <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completedGoals()}} Completed goals</h1>
         </div>
         <div class="pull-left pills-container">
           <span class="pills career" ng-click="typeFilter('career')">career</span>
