@@ -32,9 +32,21 @@ app.controller('goalsController', function($scope, goalsFactory){
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
       $scope.show = false;
+      $scope.clearFields(newgoal);
     }, function(err) {
       console.log(err);
     });
+  }
+
+  // clear input fiels for adding and editing a goal
+  $scope.clearFields = function(goalToClear) {
+    console.log("first", goalToClear);
+    // for some reason setting the whole object to null didnt work so I set each property to an empty string instead
+    goalToClear.name = '';
+    goalToClear.type = '';
+    goalToClear.description = '';
+    console.log("second", goalToClear);
+    //$scope.$setPristine(true);
   }
 
   // Delete a goal
