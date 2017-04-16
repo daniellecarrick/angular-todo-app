@@ -16,7 +16,7 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   $scope.toggleModal = function() {
     $scope.show ^= true;
-    //$scope.editmode ^= true;
+    $scope.editmode ^= true;
   }
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
@@ -34,9 +34,9 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
-    $scope.editmode = false;
-    $scope.show = false;
-
+    /*$scope.editmode = false;
+    $scope.show = false;*/
+    $scope.toggleModal();
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
       $scope.clearFields(newgoal);
@@ -58,8 +58,9 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Delete a goal (called when pressing the "Delete" button)
   $scope.deleteGoal = function(goalToDelete) {
-    $scope.editmode = false;
-    $scope.show = false;
+    /*$scope.editmode = false;
+    $scope.show = false;*/
+    $scope.toggleModal();
     console.log(goalToDelete);
     goalsFactory.deleteGoal(goalToDelete).then(function(response) {
       for (var i = 0; i < $scope.goals.length; i++) {
@@ -74,8 +75,9 @@ app.controller('goalsController', function($scope, goalsFactory){
   // Edit goal (called when pressing the pencil icon) creates a copy of the goal so it can be updated or deleted
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object
-    $scope.editmode = true;
-    $scope.show = true;
+    /*$scope.editmode = true;
+    $scope.show = true;*/
+    $scope.toggleModal();
     index = $scope.goals.indexOf(goalToEdit);
     console.log("index", index);
     $scope.temporaryGoal = angular.copy(goalToEdit);
@@ -120,8 +122,9 @@ app.controller('goalsController', function($scope, goalsFactory){
     //var index = $scope.goals.indexOf(goalToUpdate);
     goalsFactory.updateGoal(goalToUpdate).then(function(updatedGoal) {
       $scope.goals[index] = updatedGoal;
-      $scope.show = false;
-      $scope.editmode = false;
+      /*$scope.show = false;
+      $scope.editmode = false;*/
+      $scope.toggleModal();
     }, function(err) {
       console.log(err);
       var index = $scope.goals.indexOf(goal);
