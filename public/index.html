@@ -3,108 +3,48 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
       <script src="angular/angular.js"></script> <!--need it at the top to use ng-cloak-->
     <title>Goalie</title>
+    <base href='/' />
   </head>
   <body ng-controller="goalsController" class="ng-cloak">
-  <!-- NAV STUFF -->
+<!--***************
+*** PRIMARY NAV ***
+****************-->
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
         <span class="navbar-brand">Goalie</span>
       </div>
-      <ul class="nav navbar-nav navbar-right">
-          <li class="add-goal-btn" ng-click="show=!show"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
+      <!-- Add a new goal button -->
+      <ul ng-controller="masterController" class="nav navbar-nav navbar-right">
+        <li  class="navbar-text">{{ currentUser.username }}</li>
+        <!-- if a user is logged in, show the logout button -->
+        <li ng-show="currentUser.username"><a href="#" ng-click='logout()'>Logout</a></li>
+        <li ng-hide="currentUser.username"><a href="#" ui-sref="login">Login</a></li>
+        <li ng-hide="currentUser.username"><a href="#" ui-sref="register">Register</a></li>
+        <li class="add-goal-btn" ng-click="toggleModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }}<span class="sr-only">(current)</span></li>
       </ul>
     </div>
   </nav>
-  <div class="quote-container" ng-controller="quotesController"> <!--ask hadas about directives-->
-    <div class="container">
-      <div class="quote" ng-model="currentMessage">"{{quotes[index]}}"</div>
-    </div>
-  </div>
+  <!--displays a random quote -->
+  <div quotes-directive class="quote-container"></div>
+
   <div class="container">
-    <div class="row add-goal-container" ng-show="show">
-      <div class="add-goal-form-container">
-        <div>
-          <h1 class="text-center">Add a new goal</h1>
-          <span ng-click="show=!show" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          {{goal}}
-          <!-- For for adding goals -->
-          <form ng-submit="addGoal(goal)">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Goal" ng-model="goal.name"></input>
-            </div>
-            <div class="form-group">
-              <select ng-model="goal.type" class="form-control">
-                <option>Travel</option>
-                <option>Career</option>
-                <option>Personal</option>
-                <option>Project</option>
-                <option>Experience</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Describe the goal" ng-model="goal.description"></input>
-            </div>
-            <button type="submit" class="btn btn-primary" ng-click="show=!show">Add</button>
-            <button type="button" class="btn btn-primary" ng-click="show=!show">Cancel</button>
-          </form>
-        </div>
-      </div>
-    </div>
-      <div class="col-sm-12">
-      <div class="title-container">
-        <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{goals.length}} Active goals</h1>
-        <h1 class="title">/</h1>
-        <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completed.length}} Completed goals</h1>
-      </div>
-        <div class="pull-left pills-container">
-          <span class="pills career">career</span>
-          <span class="pills personal">personal</span>
-          <span class="pills travel">travel</span>
-          <span class="pills project">project</span>
-          <span class="pills experience">experience</span>
-          <span class="pills other">other</span>
-        </div>
-      </div>
-      <!-- ACTIVE GOALS -->
-      <div class="row goals-container">
-      <!-- shwActiveGoals toggles between seeing active and completed goals -->
-        <div ng-repeat="goal in goals | filter: !showActiveGoals track by goal._id ">
-          <div class="col-xs-4">
-            <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box"> {{ goal.name}}
-              <input ng-attr-contenteditable="{{editable}}" ng-class="{edit: editable}" ng-model="goal.name" ng-focus="editmode">
-              <input ng-class="{edit: editable}" ng-model="goal.description" />
-              <div ng-if="showActiveGoals" class="icons">
-              <!-- edit buttons -->
-                <button type="button" class="btn">
-                  <span class="glyphicon glyphicon-pencil" ng-click="editGoal(goal)" aria-hidden="true"></span>
-                </button>
-                <span ng-if="editable">
-                  <button type="button" class="btn" ng-click="updateGoal(goal)">
-                    <span>save</span>
-                  </button>
-                  <button type="button" class="btn">
-                    <span class="glyphicon glyphicon-remove-circle" ng-click="deleteGoal(goal)" aria-hidden="true"></span>
-                  </button>
-                </span>
-                <!-- complete button -->
-                <button type="button" class="btn complete-btn pull-right" ng-click="moveToCompleted(goal)">I did it!
-                  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+  <div ui-view ></div>
+
   </div>
+
   <script src="js/app.js"></script>
   <script src="js/services/goalsFactory.js"></script>
+  <script src="js/services/authFactory.js"></script>
+  <script src="js/controllers/authController.js"></script>
   <script src="js/controllers/goalsController.js"></script>
-  <script src="js/services/quotesService.js"></script>
-  <script src="js/controllers/quotesController.js"></script>
+  <script src="js/controllers/masterController.js"></script>
+  <script src="js/controllers/quotesDirective.js"></script>
+  <script src="angular-ui-router/release/angular-ui-router.js"></script>
   </body>
 </html>

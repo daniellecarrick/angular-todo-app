@@ -1,81 +1,66 @@
 var express = require('express');
-var app = express();
 
+var expressSession = require('express-session');
 var mongoose = require('mongoose');
-var Goal = require("./models/GoalModel");
-mongoose.connect("mongodb://localhost/goalsdb"); //database name
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
+var goalRoutes = require('./routes/goalRoutes');
+var userRoutes = require('./routes/userRoutes');
+var User = require("./models/UserModel");
+
+// database name
+mongoose.connect("mongodb://localhost/goalsdb");
+
+var app = express();
+// Tells the program where to find the files
+app.use(express.static('public'));
+app.use(express.static('node_modules'));
+// converts teh request obhect into a friendlier format
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('public'));
-app.use(express.static('node_modules'));
 
-app.get('/', function(req, res, next) {
-  res.send('Testing Server')
-})
 
-app.get('/goals', function(req, res, next) {
-  Goal.find(function (error, goals) {
-    if (error) {
-      console.error(error)
-      return next(error);
-    } else {
-      console.log(goals);
-      res.send(goals);
-    }
-  });
+// For user authentication
+app.use(expressSession({
+    secret: 'yourSecretHere',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy()); //Thanks to m-l-p there is no need to create a local strategy
+passport.serializeUser(User.serializeUser()); //also it helps here
+passport.deserializeUser(User.deserializeUser()); //and here
+
+//This tells the server that when a request comes into '/goals'
+//that it should use the routes in 'goalRoutes'
+//and those are in our new goalRoutes.js file
+app.use('/goals', goalRoutes);
+// this means that in the userRoutes file, the program knows to start looking in the users folder
+app.use('/users', userRoutes);
+
+app.all('*', function(req, res) {
+ res.sendFile(__dirname + '/public/index.html')
 });
 
-app.post('/goals', function(req, res, next) {
-  Goal.create(req.body, function(error, goal) {
-    if (error) {
-      console.error(error)
-      return next(error);
-    } else {
-      console.log(goal);
-      res.json(goal);
-    }
-  });
+//error handler to catch 404 and forward to main error handler
+app.use(function(req, res, next) {
+ var err = new Error('Not Found');
+ err.status = 404;
+ next(err);
 });
 
-// DELETE a goal
-app.delete('/delete/:id', function(req, res, next) {
-  Goal.remove({ _id: req.params.id }, function(err) {
-    if (err) {
-      console.error(err)
-      return next(err);
-    } else {
-      res.send("Goal Deleted");
-    }
-  });
+// main error handler
+// warning - not for use in production code!
+app.use(function(err, req, res, next) {
+ res.status(err.status || 500);
+ res.render('error', {
+   message: err.message,
+   error: err
+ });
 });
-
-app.put('/goals/:id/complete', function(req, res, next) {
-  req.body.completed = true;
-  Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
-    if (error) {
-      console.error(error)
-      return next(error);
-    } else {
-      res.send(goal);
-    }
-  });
-});
-
-app.put('/goals/:id', function(req, res, next) {
-  // new means we want the updated object returned rather than the original one
-  Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
-    if (error) {
-      console.error(error)
-      return next(error);
-    } else {
-      res.send(goal);
-    }
-  });
-});
-
 app.listen(8050, function() {
   console.log("Life goaling over here. Boot up 8050")
 });

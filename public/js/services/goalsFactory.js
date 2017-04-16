@@ -12,7 +12,7 @@ app.factory('goalsFactory', function($http, $log){
     };
 
   goalsFactory.deleteGoal = function(goal) {
-    return $http.delete('/delete/' + goal._id)
+    return $http.delete('/goals/delete/' + goal._id)
       .then(function(response) {
         return response.data;
         /*var index = goals.indexOf(goal);

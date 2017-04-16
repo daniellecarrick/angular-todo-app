@@ -19,7 +19,7 @@
 .add-goal-container {
     background-color: rgba(0,0,0,0.2);
     position: fixed;
-    width: 100%;
+    width: 105%;
     height: 100%;
     top: 0;
     left: 0;
@@ -35,12 +35,12 @@
   margin-top: 10%;
   position: relative;
 }
-
-.add-goal-form-container .glyphicon {
+/* remove button */
+.add-goal-form-container .glyphicon-remove {
   position: absolute;
   top: 10;
   right: 10;
-  color: white;
+  color: darkgrey;
 }
 
 /* Style for goal boxes */
@@ -50,7 +50,8 @@
 }
 
 .goal-box {
-  background-color: #F0F0F0;
+  background-color: #fcfcfc;
+  border: 1px solid #f0f0f0;
   padding: 5px 20px;
   margin-bottom: 30px;
   border-radius: 0px 0px 3px 3px;
@@ -58,10 +59,10 @@
   position: relative;
 }
 
-.edit {
+/*.edit {
   background-color: white;
   border-bottom: 1px solid grey;
-}
+}*/
 
 .icons {
   position: absolute;
@@ -75,7 +76,6 @@
 }
 
 .glyphicon {
-  color: white;
   cursor: pointer;
 }
 
@@ -111,6 +111,10 @@
   background-color: #CCCCCC;
 }
 
+.pills.all {
+  color: darkgrey;
+}
+
 .title {
   display: inline;
   color: #CCCCCC;
@@ -130,18 +134,22 @@
   visibility: hidden;
 }
 
-.complete-btn .glyphicon {
+/*.complete-btn {
+  color: darkgrey;
+}*/
+
+.complete-btn:hover {
+  background-color: green;
   color: white;
 }
 
 /* Quote container */
 
 .quote-container {
-  background-color: #F0F0F0;
-  margin-bottom: 50px;
+  background-color: #fcfcfc;
   font-size: 40px;
   padding:30px;
-  border-bottom: 4px solid darkgrey;
+  border-bottom: 4px solid #f0f0f0;
 }
 
 /* Toggle buttons */
