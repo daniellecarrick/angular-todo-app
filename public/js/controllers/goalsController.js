@@ -8,7 +8,7 @@ app.controller('goalsController', function($scope, goalsFactory){
   $scope.editmode = false;
   $scope.show = false;
 
-  // hold index position so we can edit and update goals
+  // hold index position. we need it to find goals in the array so we can edit and update them
   var index;
 
   // A variable to store the goal that is being edited in case the serve f*&$ up

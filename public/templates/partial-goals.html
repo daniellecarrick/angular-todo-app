@@ -91,6 +91,7 @@
 
       <div class="row goals-container">
       <!-- shwActiveGoals toggles between seeing active and completed goals -->
+      <!--<p ng-hide="(goals | filter: type).length">{{(goals | filter: type).length}}No goals</p> -->
         <div ng-repeat="goal in goals | filter: type | filter: !showActiveGoals track by goal._id">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
@@ -110,4 +111,5 @@
             </div>
           </div>
         </div>
+        <p ng-hide="(goals | filter: type | filter: !showActiveGoals).length">You have no {{type}} goals. <a ng-click="toggleModal()">Add one?</a></p>
       </div>
