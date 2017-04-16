@@ -1,7 +1,7 @@
 app.controller('goalsController', function($scope, goalsFactory){
 
   /** to dos
-   - create function to handle editabl and show states rather than repeating it in each function
+   -
 
    **/
 
@@ -34,8 +34,6 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
-    /*$scope.editmode = false;
-    $scope.show = false;*/
     $scope.toggleModal();
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
@@ -58,8 +56,6 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Delete a goal (called when pressing the "Delete" button)
   $scope.deleteGoal = function(goalToDelete) {
-    /*$scope.editmode = false;
-    $scope.show = false;*/
     $scope.toggleModal();
     console.log(goalToDelete);
     goalsFactory.deleteGoal(goalToDelete).then(function(response) {
@@ -75,8 +71,6 @@ app.controller('goalsController', function($scope, goalsFactory){
   // Edit goal (called when pressing the pencil icon) creates a copy of the goal so it can be updated or deleted
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object
-    /*$scope.editmode = true;
-    $scope.show = true;*/
     $scope.toggleModal();
     index = $scope.goals.indexOf(goalToEdit);
     console.log("index", index);
@@ -122,8 +116,6 @@ app.controller('goalsController', function($scope, goalsFactory){
     //var index = $scope.goals.indexOf(goalToUpdate);
     goalsFactory.updateGoal(goalToUpdate).then(function(updatedGoal) {
       $scope.goals[index] = updatedGoal;
-      /*$scope.show = false;
-      $scope.editmode = false;*/
       $scope.toggleModal();
     }, function(err) {
       console.log(err);
@@ -134,31 +126,21 @@ app.controller('goalsController', function($scope, goalsFactory){
     });
   }
 
-  // Get the goals form the DB and add them to an array called goals
+  // Get the goals from the DB and add them to an array called goals
   goalsFactory.getGoals().then(function(goals) {
     $scope.goals = goals;
   });
 
-    // count number of active and completed goals
-  //$scope.activeTally = 6;
-  //$scope.completedTally;
-  /*$scope.tallyGoals = function() {
-    for (i = 0; i < $scope.goals.length; i++) {
-      if ($scope.goals.completed) {
-        $scope.completedTally += 1;
-        console.log($scope.completedTally);
-      }
-    } return $scope.completedTally;
-  }*/
-
+  // Calculates the number of completed goals in the array (completed = true)
   $scope.completedGoals = function() {
+    //count starts at 0
     var count = 0;
+    // loop through object and keys
     angular.forEach($scope.goals, function(goal) {
+        // if goal is completed, add 1 to tally otherwise add 0
         count += goal.completed ? 1 : 0;
     })
     return count;
   }
-
-  //$scope.tallyGoals();
 
 });
