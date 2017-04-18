@@ -89,26 +89,32 @@
 
 .personal {
   background-color: #E8175A;
+  fill: #E8175A;
 }
 
 .travel {
-  background-color: #FFB426
+  background-color: #FFB426;
+  fill: #FFB426
 }
 
 .career {
   background-color: #2538FF;
+  fill: #2538FF;
 }
 
 .project {
   background-color: #3ABC34;
+  fill: #3ABC34;
 }
 
 .experience {
   background-color: purple;
+  fill: purple;
 }
 
 .other {
   background-color: #CCCCCC;
+  fill: #CCCCCC;
 }
 
 .pills.all {
