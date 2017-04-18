@@ -32,40 +32,62 @@ function drawBarchart(elem) {
    if (err) throw err;
     console.log(data);
 
-    var goalTypes = {
-      "Travel": 0,
-      "Personal": 0,
-      "Career": 0,
-      "Experience": 0,
-      "Project": 0,
-      "Other": 0
+    var goalTypes = [
+      {
+        "type": "Travel",
+        "count": 0
+      },
+      {
+        "type" : "Personal",
+        "count": 0
+      },
+     {
+        "type": "Career",
+        "count": 0
+      },
+     {
+        "type": "Experience",
+        "count": 0
+      },
+     {
+        "type": "Project",
+        "count": 0
+      },
+     {
+        "type": "Other",
+        "count": 0
       }
+    ]
+
     // count instances of each category
-    data.forEach(function(d) {
+   data.forEach(function(d) {
       // revisit this function. there must be a more elegant way. for example, once a match is found, go to the next index. maybe while loop?
-      for (i = 0; i < 5; i++) {
-        console.log(d.type, Object.keys(goalTypes)[i] )
-        if (d.type == Object.keys(goalTypes)[i]){
-          goalTypes[d.type]++;
-          console.log(goalTypes[d.type] ++);
-       }
+        for (i=0; i < goalTypes.length; i++) {
+          console.log(d.type, goalTypes[i].type )
+          if (d.type === goalTypes[i].type){
+          goalTypes[i].count++;
+        }
       }
       console.log(goalTypes);
-    });
+    })
 
-/*    // Scale the range of the data in the domains
-    x.domain(data.map(function(d) { return d.salesperson; }));
-    y.domain([0, d3.max(data, function(d) { return d.sales; })]);
+   /* // creates an array of the goal types
+    var goalTypes = d3.set(data.map(function(d) { return d.type; })).values();
+    console.log(goalTypes);*/
+
+    // pulls out all of the unique instances of type from the data
+    x.domain(data.map(function(d) { return d.type; }));
+    y.domain([0, d3.max(goalTypes, function(d) { return d.count; })]);
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
-        .data(data)
+        .data(goalTypes)
       .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.salesperson); })
+        .attr("x", function(d) { return x(d.type); })
         .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(d.sales); })
-        .attr("height", function(d) { return height - y(d.sales); });*/
+        .attr("y", function(d) { return y(d.count); })
+        .attr("height", function(d) { return height - y(d.count); });
 
     // add the x Axis
     svg.append("g")
