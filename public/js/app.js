@@ -19,6 +19,11 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
       templateUrl: '/templates/partial-login.html',
       controller: 'authController'
     })
+    .state('chart', {
+      url: '/chart',
+      templateUrl: '/templates/partial-chart.html',
+      controller: 'authController'
+    })
 
   $urlRouterProvider.otherwise('/home');
 }]);

@@ -95,7 +95,7 @@
         <div ng-repeat="goal in goals | filter: type | filter: !showActiveGoals track by goal._id">
           <div class="col-xs-4">
             <span class="type-indicator {{goal.type}}">{{ goal.type | lowercase }}</span>
-            <div class="goal-box"> {{goals.indexOf(goal)}}
+            <div class="goal-box">
               <h3 ng-class="{edit: editmode}" ng-bind="goal.name" ng-focus="editmode">{{goal.name}}</h3>
               <p ng-class="{edit: editmode}" ng-model="goal.description">{{goal.description}}</p>
               <div ng-if="showActiveGoals" class="icons">

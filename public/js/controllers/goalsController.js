@@ -1,8 +1,9 @@
 app.controller('goalsController', function($scope, goalsFactory){
 
   /** to dos
-   -
-
+   - congrats message for completing goal
+   - landing page for new users and to log in
+   - only show users goals after log in
    **/
 
   $scope.editmode = false;
@@ -89,6 +90,8 @@ app.controller('goalsController', function($scope, goalsFactory){
         });
         // setting the goal object at that index to our new object (with completed = true)
         $scope.goals[index] = goal;
+
+        // show congratulations message
       }, function(err) {
         // if there is an error on the server, return to original goal
         $scope.goals[index] = $scope.temporaryGoal;
