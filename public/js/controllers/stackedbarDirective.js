@@ -16,9 +16,10 @@ function drawBarchart(elem) {
             .range([0, width])
             .padding(0.1);
 
-  var x0 = d3.scaleBand()
+ /* var x0 = d3.scaleBand()
+            .domain([0,5])
             .range([0, width])
-            .padding(0.1);
+            .paddingOuter(0.2);*/
 
   var y = d3.scaleLinear()
             .range([height, 0]);
@@ -34,7 +35,7 @@ function drawBarchart(elem) {
   // get the data
   d3.json('/goals', function (err, data) {
    if (err) throw err;
-    console.log(data);
+   // console.log(data);
 
     // object to store the count of instances
     var goalTypes = [
@@ -80,10 +81,9 @@ function drawBarchart(elem) {
             if (d.completed === true) {
               goalTypes[i].completed++;
             }
-            //return;
+            return;
         }
       }
-      // console.log(goalTypes);
     })
 
    goalTypes.forEach(function(d) {
@@ -91,7 +91,7 @@ function drawBarchart(elem) {
     d.active = d.count - d.completed;
    })
 
-   console.log(goalTypes);
+   //console.log(goalTypes);
    /* // creates an array of the goal types
     var goalTypes = d3.set(data.map(function(d) { return d.type; })).values();
     console.log(goalTypes);*/
@@ -109,18 +109,18 @@ function drawBarchart(elem) {
         .attr("class", function(d) { return d.type + " bar"; } )
         .attr("x", function(d) { return x(d.type); })
         .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(d.completed); })
-        .attr("height", function(d) { return height - y(d.completed); });
+        .attr("y", function(d) { return y(d.count); })
+        .attr("height", function(d) { return height - y(d.count); });
 
     svg.selectAll('.active')
         .data(goalTypes)
       .enter().append('rect')
         //.attr("class", "active")
         .attr("class", function(d) { return d.type + " active"; } )
-        .attr("x", function(d) { return x(d.type); })
-        .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(d.active); })
-        .attr("height", function(d) { return height - y(d.active); });
+        .attr("x", function(d) { return x(d.type) + (x.bandwidth()/2) -10; })
+        .attr("width", 20)
+        .attr("y", function(d) { return y(d.completed); })
+        .attr("height", function(d) { return height - y(d.completed); });
 
     // add the x Axis
     svg.append("g")

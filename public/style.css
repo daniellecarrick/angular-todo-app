@@ -198,6 +198,9 @@
 
 .active {
   fill: black;
+  opacity: .5;
+  width: 20px;
+  margin-left: 20px;
 }
 
 
