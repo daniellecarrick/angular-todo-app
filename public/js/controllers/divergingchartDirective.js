@@ -35,27 +35,33 @@ function drawBarchart(elem) {
     var goalTypes = [
       {
         "type": "Travel",
-        "count": 0
+        "count": 0,
+        "completed": 0
       },
       {
         "type" : "Personal",
-        "count": 0
+        "count": 0,
+        "completed": 0
       },
      {
         "type": "Career",
-        "count": 0
+        "count": 0,
+        "completed": 0
       },
      {
         "type": "Experience",
-        "count": 0
+        "count": 0,
+        "completed": 0
       },
      {
         "type": "Project",
-        "count": 0
+        "count": 0,
+        "completed": 0
       },
      {
         "type": "Other",
-        "count": 0
+        "count": 0,
+        "completed": 0
       }
     ]
 
@@ -63,21 +69,32 @@ function drawBarchart(elem) {
    data.forEach(function(d) {
       // revisit this function. there must be a more elegant way. for example, once a match is found, go to the next index. maybe while loop?
         for (i=0; i < goalTypes.length; i++) {
-          console.log(d.type, goalTypes[i].type )
+          //console.log(d.type, goalTypes[i].type )
           if (d.type === goalTypes[i].type){
-          goalTypes[i].count++;
+            goalTypes[i].count++;
+            if (d.completed === true) {
+              goalTypes[i].completed++;
+            }
+            //return;
         }
       }
-      console.log(goalTypes);
+      // console.log(goalTypes);
     })
 
+   goalTypes.forEach(function(d) {
+    // adds active key to each object, that equals the count minus completed
+    d.active = d.count - d.completed;
+   })
+
+   console.log(goalTypes);
    /* // creates an array of the goal types
     var goalTypes = d3.set(data.map(function(d) { return d.type; })).values();
     console.log(goalTypes);*/
 
     // pulls out all of the unique instances of type from the goalsType array
     x.domain(goalTypes.map(function(d) { return d.type; }));
-    y.domain([0, d3.max(goalTypes, function(d) { return d.count; })]);
+    //y.domain([0, d3.max(goalTypes, function(d) { return d.count; })]);
+    y.domain([d3.min(goalTypes, function(d) { return d.completed * -1 }), d3.max(goalTypes, function(d) { return d.active; })]);
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
@@ -87,8 +104,9 @@ function drawBarchart(elem) {
         .attr("class", function(d) { return d.type; } )
         .attr("x", function(d) { return x(d.type); })
         .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(d.count); })
-        .attr("height", function(d) { return height - y(d.count); });
+        .attr("y", function(d) { return y(d.completed); })
+        .attr("height", function(d) { return height - y(d.completed); });
+        //.attr("height", function(d) { return height - y(d.active); });
 
     // add the x Axis
     svg.append("g")
@@ -105,7 +123,7 @@ function drawBarchart(elem) {
 
 
 /* A custom directive for the scatterplot chart */
-app.directive("barchart", function() {
+app.directive("divergingchart", function() {
   return {
     restrict: 'E', // only use this directive as a tag
     template: '<div class="chart-container"></div>',

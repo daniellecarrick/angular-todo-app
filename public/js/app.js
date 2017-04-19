@@ -19,9 +19,9 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
       templateUrl: '/templates/partial-login.html',
       controller: 'authController'
     })
-    .state('chart', {
-      url: '/chart',
-      templateUrl: '/templates/partial-chart.html',
+    .state('dashboard', {
+      url: '/dashboard',
+      templateUrl: '/templates/partial-dashboard.html',
       controller: 'authController'
     })
 

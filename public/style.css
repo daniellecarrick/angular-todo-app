@@ -181,5 +181,19 @@
   margin-bottom: 0px;
 }
 
+/* D3 */
+.tick text {
+  font-size: 12px;
+}
+
+.chart-module {
+  background-color: #fcfcfc;
+  border: 1px solid #f0f0f0;
+  padding: 5px 20px;
+  margin-bottom: 30px;
+  border-radius: 0px 0px 3px 3px;
+  min-height: 220px;
+  position: relative;
+}
 
 
