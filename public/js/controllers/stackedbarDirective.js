@@ -15,6 +15,11 @@ function drawBarchart(elem) {
   var x = d3.scaleBand()
             .range([0, width])
             .padding(0.1);
+
+  var x0 = d3.scaleBand()
+            .range([0, width])
+            .padding(0.1);
+
   var y = d3.scaleLinear()
             .range([height, 0]);
 
@@ -86,8 +91,6 @@ function drawBarchart(elem) {
     d.active = d.count - d.completed;
    })
 
-   //console.log(d.active, d.completed);
-
    console.log(goalTypes);
    /* // creates an array of the goal types
     var goalTypes = d3.set(data.map(function(d) { return d.type; })).values();
@@ -95,20 +98,29 @@ function drawBarchart(elem) {
 
     // pulls out all of the unique instances of type from the goalsType array
     x.domain(goalTypes.map(function(d) { return d.type; }));
-    //y.domain([0, d3.max(goalTypes, function(d) { return d.count; })]);
-    y.domain([d3.min(goalTypes, function(d) { return d.completed * -1 }), d3.max(goalTypes, function(d) { return d.active; })]);
+    y.domain([0, d3.max(goalTypes, function(d) { return d.count; })]);
+    //y.domain([d3.min(goalTypes, function(d) { return d.completed * -1 }), d3.max(goalTypes, function(d) { return d.active; })]);
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
         .data(goalTypes)
       .enter().append("rect")
-        .attr("class", "bar")
-        .attr("class", function(d) { return d.type; } )
+        //.attr("class", "bar")
+        .attr("class", function(d) { return d.type + " bar"; } )
         .attr("x", function(d) { return x(d.type); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(d.completed); })
         .attr("height", function(d) { return height - y(d.completed); });
-        //.attr("height", function(d) { return height - y(d.active); });
+
+    svg.selectAll('.active')
+        .data(goalTypes)
+      .enter().append('rect')
+        //.attr("class", "active")
+        .attr("class", function(d) { return d.type + " active"; } )
+        .attr("x", function(d) { return x(d.type); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(d.active); })
+        .attr("height", function(d) { return height - y(d.active); });
 
     // add the x Axis
     svg.append("g")
@@ -125,7 +137,7 @@ function drawBarchart(elem) {
 
 
 /* A custom directive for the scatterplot chart */
-app.directive("divergingchart", function() {
+app.directive("stackedbar", function() {
   return {
     restrict: 'E', // only use this directive as a tag
     template: '<div class="chart-container"></div>',

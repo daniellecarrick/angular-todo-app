@@ -196,4 +196,8 @@
   position: relative;
 }
 
+.active {
+  fill: black;
+}
+
 
