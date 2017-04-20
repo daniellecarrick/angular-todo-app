@@ -181,6 +181,10 @@
   margin-bottom: 0px;
 }
 
+.navbar-brand {
+  cursor: pointer;
+}
+
 /* D3 */
 .tick text {
   font-size: 12px;
@@ -194,6 +198,7 @@
   border-radius: 0px 0px 3px 3px;
   min-height: 220px;
   position: relative;
+  border-radius: 2px;
 }
 .chart-title-container {
   background: white;

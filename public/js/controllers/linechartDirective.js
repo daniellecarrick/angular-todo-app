@@ -1,5 +1,5 @@
 function drawLinechart(elem) {
-  // get rid of jQuery selection to access raw HTML node of <barchart>
+  // get rid of jQuery selection to access raw HTML node of <linechart>
   var rootNode = elem[0];
 
   var root = d3.select(rootNode).select('.line-chart-container');
@@ -22,22 +22,27 @@ function drawLinechart(elem) {
   var x = d3.scaleTime()
       .range([0, width]);
 
+// the tooltip
+  var tooltip = root.append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
   // get the data
   d3.json('/goals', function (err, data) {
    if (err) throw err;
    console.log(data);
 
    // parsing our date. we tell d3 how the date is structured so it can grab and convert the elements into a Date object
-    var parseDate = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
+  var parseDate = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 
     // count instances of each category and add to goalTypes array declared above
-   data.forEach(function(d) {
+  data.forEach(function(d) {
       // parse the date into a format D3 can work with
       d.date_completed = parseDate(d.date_completed);
       //console.log(d.date_completed);
     })
 
-    // pulls out all of the unique instances of type from the goalsType array
+    // sets the domain of the x scale by finding the min and max
     x.domain(d3.extent(data, function(d) { return d.date_completed }))
 
     // append the circles
@@ -47,7 +52,25 @@ function drawLinechart(elem) {
         .attr("class", function(d) { return d.type + " marks"; })
         .attr("cx", function(d) { return x(d.date_completed); })
         .attr("cy", 0)
-        .attr("r", 15);
+        .attr("r", 15)
+        .on("mouseover", function(d) {
+          tooltip.transition()
+            .duration(200)
+            .style("opacity", 1);
+           // make the bubble a little bigger
+          d3.select(this).transition()
+            .attr("r", 20);
+          tooltip.html(d.name)
+            .style("left", ((d3.mouse(this)[0]) - 10) + "px") // finds x coordinate of mouse position
+            .style("top", ((d3.mouse(this)[1]) + 50) + "px"); //finds y coordinate of mouse position
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+            .duration(200)
+            .style("opacity", 0);
+        d3.select(this).transition()
+            .attr("r", 15);
+        });
 
     // add the x Axis
     svg.append("g")
