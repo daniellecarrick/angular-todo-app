@@ -12,7 +12,7 @@ var goalSchema = new Schema({
   description: String,
   completed: { type: Boolean, default: false},
   date_start: { type: Date, default: Date.now},
-  date_completed: { type: Date, default: {}}
+  date_completed: { type: Date }
 });
 
 var Goal = mongoose.model("goal", goalSchema); //collection name
