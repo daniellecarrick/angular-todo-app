@@ -187,13 +187,22 @@
 }
 
 .chart-module {
-  background-color: #fcfcfc;
+  background-color: white;
   border: 1px solid #f0f0f0;
-  padding: 5px 20px;
+  padding: 70px 20px 20px 20px;
   margin-bottom: 30px;
   border-radius: 0px 0px 3px 3px;
   min-height: 220px;
   position: relative;
+}
+.chart-title-container {
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #f0f0f0;
+  padding-left: 20px;
 }
 
 .active {
