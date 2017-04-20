@@ -66,6 +66,7 @@ router.delete('/delete/:id', function(req, res, next) {
 
 router.put('/:id/complete', function(req, res, next) {
   req.body.completed = true;
+  req.body.date_completed = new Date();
   Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(error, goal) {
     if (error) {
       console.error(error)

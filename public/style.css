@@ -203,4 +203,7 @@
   margin-left: 20px;
 }
 
-
+/* scatterplot */
+.marks {
+  opacity: .5;
+}

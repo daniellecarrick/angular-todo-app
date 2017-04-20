@@ -17,7 +17,7 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   $scope.toggleModal = function() {
     $scope.show ^= true;
-    $scope.editmode ^= true;
+   // $scope.editmode ^= true;
   }
   // Controls the toggle between active and completed goals
   $scope.showActiveGoals = true;
@@ -35,7 +35,8 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Add a goal
   $scope.addGoal = function(newgoal) {
-    $scope.toggleModal();
+    $scope.editmode = false;
+    $scope.show = false;
     goalsFactory.addGoal(newgoal).then(function(goal) {
       $scope.goals.push(goal);
       $scope.clearFields(newgoal);
@@ -57,7 +58,8 @@ app.controller('goalsController', function($scope, goalsFactory){
 
   // Delete a goal (called when pressing the "Delete" button)
   $scope.deleteGoal = function(goalToDelete) {
-    $scope.toggleModal();
+    $scope.editmode = false;
+    $scope.show = false;
     console.log(goalToDelete);
     goalsFactory.deleteGoal(goalToDelete).then(function(response) {
       for (var i = 0; i < $scope.goals.length; i++) {
@@ -72,7 +74,8 @@ app.controller('goalsController', function($scope, goalsFactory){
   // Edit goal (called when pressing the pencil icon) creates a copy of the goal so it can be updated or deleted
   $scope.editGoal = function(goalToEdit) {
     // set temporaryGoal to a copy of the original goal object
-    $scope.toggleModal();
+    $scope.editmode = true;
+    $scope.show = true;
     index = $scope.goals.indexOf(goalToEdit);
     console.log("index", index);
     $scope.temporaryGoal = angular.copy(goalToEdit);
@@ -91,13 +94,15 @@ app.controller('goalsController', function($scope, goalsFactory){
         // setting the goal object at that index to our new object (with completed = true)
         $scope.goals[index] = goal;
 
-        // show congratulations message
+        // To Do: show congratulations message
       }, function(err) {
         // if there is an error on the server, return to original goal
         $scope.goals[index] = $scope.temporaryGoal;
         alert("move to completed goal didn't work.")
       })
     console.log("move to completed" + goal.name);
+    $scope.editmode = false;
+    $scope.show = false;
   }
 
 /*  $scope.updateGoal = function(goalToUpdate) {
@@ -127,6 +132,8 @@ app.controller('goalsController', function($scope, goalsFactory){
       $scope.goals[index] = $scope.temporaryGoal;
       alert("updated goal didn't work.")
     });
+    $scope.editmode = false;
+    $scope.show = false;
   }
 
   // Get the goals from the DB and add them to an array called goals
