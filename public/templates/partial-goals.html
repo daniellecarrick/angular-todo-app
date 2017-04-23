@@ -1,7 +1,6 @@
 <!--***************************************
 *** MODAL FOR ADDING AND EDITING GOALS ***
 ****************************************-->
-<span ng-controller="goalsController">
   <div class="row add-goal-container" ng-show="show">
       <div class="add-goal-form-container">
       <span ng-click="toggleModal()" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -75,6 +74,12 @@
           <h1 class="title">/</h1>
           <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completedGoals()}} Completed goals</h1>
         </div>
+        <div class="col-sm-3">
+          <button type="button" class="add-goal-btn btn" ng-click="toggleModal()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }} {{ editmode }}<span class="sr-only">(current)</span>
+          </button>
+        </div>
+
         <div class="pull-left pills-container">
           <span class="pills career" ng-click="typeFilter('career')">career</span>
           <span class="pills personal" ng-click="typeFilter('personal')">personal</span>
@@ -85,6 +90,7 @@
           <span class="pills all" ng-click="typeFilter('all')">all</span>
         </div>
       </div>
+
 
       <!--******************************************************
       ********************** ACTIVE GOALS **********************
@@ -114,5 +120,3 @@
         </div>
         <p ng-hide="(goals | filter: type | filter: !showActiveGoals).length">You have no active {{type}} goals. <a ng-click="toggleModal()">Add one?</a></p>
       </div>
-
-</span>

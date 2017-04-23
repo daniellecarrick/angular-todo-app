@@ -10,7 +10,7 @@
     <title>Goalie</title>
     <base href='/' />
   </head>
-  <body class="ng-cloak">
+  <body ng-controller="goalsController" class="ng-cloak">
 <!--***************
 *** PRIMARY NAV ***
 ****************-->
@@ -19,21 +19,37 @@
       <div class="navbar-header">
         <span class="navbar-brand" ui-sref="home">Goalie</span>
       </div>
-      <!-- Add a new goal button -->
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" ng-click='logout()' ui-sref="login">Logout</a></li>
+<!--- NAV FOR LOGGED IN USER -->
+      <ul class="nav navbar-nav navbar-right" ng-show="currentUser">
+        <li>
+          <button type="button" class="btn">Dashboard
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="btn">Goals
+            <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+          </button>
+        </li>
+        <li>
+          <a href="#" ng-click='logout()' ui-sref="login">Logout</a>
+        </li>
         <!-- if a user is logged in, show the logout button -->
         <li role="presentation" class="dropdown" ng-show="currentUser">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             {{ currentUser }} <span class="caret"></span>
           </a>
-<!--      <ul class="dropdown-menu">
-            <li><a href="#" ng-click='logout()'>Logout</a></li>
-          </ul> -->
         </li>
-          <li ng-hide="currentUser"><a target="_self" href="/auth/facebook" class="btn navbar-btn btn-primary">Login</a></li>
-          <li ng-hide="currentUser"><a href="#" ui-sref="register">Register</a></li>
-        <li class="add-goal-btn" ng-click="toggleModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }} {{ editmode }}<span class="sr-only">(current)</span></li>
+      </ul>
+<!--- NAV FOR NON LOGGED IN USER -->
+      <ul class="nav navbar-nav navbar-right" ng-hide="currentUser">
+        <li ng-hide="currentUser">
+          <a target="_self" href="/auth/facebook" class="btn navbar-btn btn-primary">Login</a>
+        </li>
+        <li ng-hide="currentUser">
+          <a href="#" ui-sref="register">Register</a>
+        </li>
+<!--         <li class="add-goal-btn" ng-click="toggleModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }} {{ editmode }}<span class="sr-only">(current)</span></li> -->
       </ul>
     </div>
   </nav>

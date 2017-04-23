@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-// For user authentication
+/*// For user authentication
 app.use(expressSession({
     secret: 'yourSecretHere',
     resave: false,
@@ -35,7 +35,7 @@ app.use(passport.session());
 
 passport.use(User.createStrategy()); //Thanks to m-l-p there is no need to create a local strategy
 passport.serializeUser(User.serializeUser()); //also it helps here
-passport.deserializeUser(User.deserializeUser()); //and here
+passport.deserializeUser(User.deserializeUser()); //and here*/
 
 //This tells the server that when a request comes into '/goals'
 //that it should use the routes in 'goalRoutes'
