@@ -77,6 +77,7 @@ function drawLinechart(elem) {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
+    //x.ticks(20);
   });
 
 }

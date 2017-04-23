@@ -31,7 +31,8 @@ router.post('/', function(req, res, next) {
   });
 });
 
-// Add a review
+/*
+// Add a review / dont need this. no reviews.
 router.post('/:id/reviews', function(req, res, next) {
   Goal.findById(req.params.id, function(err, foundGoal) {
     if (err) {
@@ -50,7 +51,7 @@ router.post('/:id/reviews', function(req, res, next) {
       });
     }
   });
-});
+});*/
 
 // DELETE a goal
 router.delete('/delete/:id', function(req, res, next) {
@@ -64,6 +65,7 @@ router.delete('/delete/:id', function(req, res, next) {
   });
 });
 
+// route for completing goals
 router.put('/:id/complete', function(req, res, next) {
   req.body.completed = true;
   req.body.date_completed = new Date();

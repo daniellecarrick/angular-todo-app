@@ -187,7 +187,11 @@
 
 /* D3 */
 .tick text {
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.tick line {
+  display: none;
 }
 
 .chart-module {
