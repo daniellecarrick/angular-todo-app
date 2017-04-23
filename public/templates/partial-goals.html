@@ -1,7 +1,8 @@
 <!--***************************************
 *** MODAL FOR ADDING AND EDITING GOALS ***
 ****************************************-->
-<div class="row add-goal-container" ng-show="show">
+<span ng-controller="goalsController">
+  <div class="row add-goal-container" ng-show="show">
       <div class="add-goal-form-container">
       <span ng-click="toggleModal()" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       <!--logic for new goal -->
@@ -113,3 +114,5 @@
         </div>
         <p ng-hide="(goals | filter: type | filter: !showActiveGoals).length">You have no active {{type}} goals. <a ng-click="toggleModal()">Add one?</a></p>
       </div>
+
+</span>

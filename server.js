@@ -7,6 +7,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
 var goalRoutes = require('./routes/goalRoutes');
 var userRoutes = require('./routes/userRoutes');
+var authRoutes = require('./routes/authRoutes');
 var User = require("./models/UserModel");
 
 // database name
@@ -28,8 +29,10 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(User.createStrategy()); //Thanks to m-l-p there is no need to create a local strategy
 passport.serializeUser(User.serializeUser()); //also it helps here
 passport.deserializeUser(User.deserializeUser()); //and here
@@ -40,6 +43,8 @@ passport.deserializeUser(User.deserializeUser()); //and here
 app.use('/goals', goalRoutes);
 // this means that in the userRoutes file, the program knows to start looking in the users folder
 app.use('/users', userRoutes);
+// need this for the auth routes
+app.use('/auth', authRoutes);
 
 app.all('*', function(req, res) {
  res.sendFile(__dirname + '/public/index.html')
@@ -56,11 +61,11 @@ app.use(function(req, res, next) {
 // warning - not for use in production code!
 app.use(function(err, req, res, next) {
  res.status(err.status || 500);
- res.render('error', {
+ res.send( {
    message: err.message,
    error: err
  });
 });
-app.listen(8050, function() {
-  console.log("Life goaling over here. Boot up 8050")
+app.listen(8000, function() {
+  console.log("Life goaling over here. Boot up 8000")
 });

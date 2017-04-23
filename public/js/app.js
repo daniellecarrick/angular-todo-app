@@ -24,6 +24,36 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
       templateUrl: '/templates/partial-dashboard.html',
       controller: 'authController'
     })
+    .state('auth', {
+      url: '/authorization?token&name',
+      controller: function($rootScope, $stateParams, $state, $http) {
+
+        if ($stateParams.token) {
+          var user = {
+            name: $stateParams.name,
+            token: $stateParams.token
+          }
+          console.log('here?')
+          localStorage.setItem("user", JSON.stringify(user));
+          $rootScope.currentUser = user.name;
+          $http.defaults.headers.common.Authorization = 'Bearer ' + user.token;
+          $state.go('home');
+        }
+      }
+    })
 
   $urlRouterProvider.otherwise('/home');
 }]);
+
+app.run(function($rootScope, $http) {
+  //retrieve user from local storage
+  var user = JSON.parse(localStorage.getItem('user'));
+
+  console.log(user);
+  //if a user was retrieved set the currentUser
+  if (user) {
+    $rootScope.currentUser = user.name;
+    $http.defaults.headers.common.Authorization = 'Bearer ' + user.token;
+
+  }
+});

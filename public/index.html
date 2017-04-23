@@ -10,30 +10,29 @@
     <title>Goalie</title>
     <base href='/' />
   </head>
-  <body ng-controller="goalsController" class="ng-cloak">
+  <body class="ng-cloak">
 <!--***************
 *** PRIMARY NAV ***
 ****************-->
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse" ng-controller="authController">
     <div class="container-fluid">
       <div class="navbar-header">
         <span class="navbar-brand" ui-sref="home">Goalie</span>
       </div>
       <!-- Add a new goal button -->
-      <ul ng-controller="masterController" class="nav navbar-nav navbar-right">
-
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" ng-click='logout()' ui-sref="login">Logout</a></li>
         <!-- if a user is logged in, show the logout button -->
-        <li role="presentation" class="dropdown">
+        <li role="presentation" class="dropdown" ng-show="currentUser">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            {{ currentUser.username }} <span class="caret"></span>
+            {{ currentUser }} <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li ng-show="currentUser.username"><a href="#" ng-click='logout()'>Logout</a></li>
-          </ul>
+<!--      <ul class="dropdown-menu">
+            <li><a href="#" ng-click='logout()'>Logout</a></li>
+          </ul> -->
         </li>
-
-        <li ng-hide="currentUser.username"><a href="#" ui-sref="login">Login</a></li>
-        <li ng-hide="currentUser.username"><a href="#" ui-sref="register">Register</a></li>
+          <li ng-hide="currentUser"><a target="_self" href="/auth/facebook" class="btn navbar-btn btn-primary">Login</a></li>
+          <li ng-hide="currentUser"><a href="#" ui-sref="register">Register</a></li>
         <li class="add-goal-btn" ng-click="toggleModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }} {{ editmode }}<span class="sr-only">(current)</span></li>
       </ul>
     </div>
@@ -42,22 +41,21 @@
   <div quotes-directive class="quote-container"></div>
 
   <div class="container">
-
     <div ui-view ></div>
-
   </div>
 
   <script src="js/app.js"></script>
+  <!-- <script src="bootstrap/dist/js/bootstrap.js"></script> -->
   <script src="js/services/goalsFactory.js"></script>
-  <script src="js/services/authFactory.js"></script>
+  <!-- <script src="js/services/authFactory.js"></script> -->
   <script src="js/controllers/authController.js"></script>
   <script src="js/controllers/goalsController.js"></script>
-  <script src="js/controllers/masterController.js"></script>
-  <script src="js/controllers/quotesDirective.js"></script>
-  <!-- <script src="js/controllers/barchartDirective.js"></script> -->
-  <!-- <script src="js/controllers/divergingchartDirective.js"></script> -->
-  <script src="js/controllers/stackedbarDirective.js"></script>
-  <script src="js/controllers/linechartDirective.js"></script>
+  <!-- <script src="js/controllers/masterController.js"></script> -->
+  <script src="js/directives/quotesDirective.js"></script>
+  <!-- <script src="js/directives/barchartDirective.js"></script> -->
+  <!-- <script src="js/directives/divergingchartDirective.js"></script> -->
+  <script src="js/directives/stackedbarDirective.js"></script>
+  <script src="js/directives/linechartDirective.js"></script>
   <script src="angular-ui-router/release/angular-ui-router.js"></script>
   </body>
 </html>

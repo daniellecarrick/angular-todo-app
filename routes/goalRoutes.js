@@ -1,25 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var Goal = require("../models/GoalModel");
+var auth = require('express-jwt')({secret:'thisIsTopSecret'});
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 // Server routes
 /*router.get('/', function(req, res, next) {
   res.send('Testing Server')
 })*/
 
-router.get('/', function(req, res, next) {
-  Goal.find(function (error, goals) {
+router.get('/', auth, function(req, res, next) {
+
+  Goal.find({owner:ObjectId(req.user.id)},function (error, goals) {
     if (error) {
       console.error(error)
       return next(error);
     } else {
-      console.log(goals);
+      // console.log(goals);
       res.send(goals);
     }
   });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', auth, function(req, res, next) {
+  // console.log(req.user)
+  req.body.owner = req.user.id;
   Goal.create(req.body, function(error, goal) {
     if (error) {
       console.error(error)
