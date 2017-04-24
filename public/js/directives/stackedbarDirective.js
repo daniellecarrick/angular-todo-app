@@ -32,8 +32,14 @@ function drawBarchart(elem) {
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+var user = JSON.parse(localStorage.getItem('user'));
   // get the data
-  d3.json('/goals', function (err, data) {
+  // dif way to get data when we need to pass headers
+d3.request('/goals')
+    .mimeType("application/json")
+    .header("Authorization", "Bearer " + user.token)
+    .response(function(xhr) { return JSON.parse(xhr.responseText); })
+    .get(function (err, data) {
    if (err) throw err;
    // console.log(data);
 

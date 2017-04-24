@@ -69,25 +69,26 @@
     ********** SUB NAV *************-->
 
       <div class="col-sm-12">
-        <div class="title-container">
+        <div class="title-container" class="col-sm-9">
           <h1 class="selected title" ng-class="{selected: showActiveGoals}" ng-click="showActiveGoals=!showActiveGoals">{{goals.length - completedGoals()}} Active goals</h1>
           <h1 class="title">/</h1>
           <h1 class="title" ng-class="{selected: !showActiveGoals}"  ng-click="showActiveGoals=!showActiveGoals">{{completedGoals()}} Completed goals</h1>
         </div>
-        <div class="col-sm-3">
+<!--         <div class="col-sm-3">
           <button type="button" class="add-goal-btn btn" ng-click="toggleModal()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a goal {{ show }} {{ editmode }}<span class="sr-only">(current)</span>
           </button>
-        </div>
-
-        <div class="pull-left pills-container">
-          <span class="pills career" ng-click="typeFilter('career')">career</span>
-          <span class="pills personal" ng-click="typeFilter('personal')">personal</span>
-          <span class="pills travel" ng-click="typeFilter('travel')">travel</span>
-          <span class="pills project" ng-click="typeFilter('project')">project</span>
-          <span class="pills experience" ng-click="typeFilter('experience')">experience</span>
-          <span class="pills other" ng-click="typeFilter('other')">other</span>
-          <span class="pills all" ng-click="typeFilter('all')">all</span>
+        </div> -->
+        <div class="col-sm-12">
+          <div class="pull-left pills-container">
+            <span class="pills career" ng-click="typeFilter('career')">career</span>
+            <span class="pills personal" ng-click="typeFilter('personal')">personal</span>
+            <span class="pills travel" ng-click="typeFilter('travel')">travel</span>
+            <span class="pills project" ng-click="typeFilter('project')">project</span>
+            <span class="pills experience" ng-click="typeFilter('experience')">experience</span>
+            <span class="pills other" ng-click="typeFilter('other')">other</span>
+            <span class="pills all" ng-click="typeFilter('all')">all</span>
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,10 @@
+<div class="landing">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h1>Welcome to Goalie</h1>
-      <button type="button">Get started</button>
+        <li ng-hide="currentUser">
+          <a target="_self" href="/auth/facebook" class="btn navbar-btn btn-primary">Login</a>
+        </li>
     </div>
   </div>
+</div>

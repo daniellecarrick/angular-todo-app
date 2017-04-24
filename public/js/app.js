@@ -5,8 +5,8 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
   $locationProvider.html5Mode(true);
 
   $stateProvider
-    .state('home', {
-      url: '/home',
+    .state('goals', {
+      url: '/goals',
       templateUrl: '/templates/partial-goals.html'
     })
     .state('register', {
@@ -22,6 +22,11 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: '/templates/partial-dashboard.html',
+      controller: 'authController'
+    })
+    .state('welcome', {
+      url: '/welcome',
+      templateUrl: '/templates/partial-landing.html',
       controller: 'authController'
     })
     .state('auth', {
@@ -42,7 +47,7 @@ app.config(['$stateProvider','$urlRouterProvider', '$locationProvider', function
       }
     })
 
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/welcome');
 }]);
 
 app.run(function($rootScope, $http) {

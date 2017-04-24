@@ -225,3 +225,10 @@
 .marks {
   opacity: .5;
 }
+
+@media (max-width: 600px) {
+  .quote-container {
+    display: none;
+  }
+}
+</style>

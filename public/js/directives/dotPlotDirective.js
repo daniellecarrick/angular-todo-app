@@ -1,14 +1,14 @@
-function drawLinechart(elem) {
+function drawDotPlot(elem) {
   // get rid of jQuery selection to access raw HTML node of <linechart>
   var rootNode = elem[0];
 
-  var root = d3.select(rootNode).select('.line-chart-container');
+  var root = d3.select(rootNode).select('.dot-plot-container');
 
   // set the dimensions and margins of the graph
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = parseInt(d3.select('.line-chart-container').style('width'), 10),
+      width = parseInt(d3.select('.dot-plot-container').style('width'), 10),
       width = width - margin.left - margin.right,
-      height = parseInt(d3.select('.line-chart-container').style('height'), 10),
+      height = parseInt(d3.select('.dot-plot-container').style('height'), 10),
       height = 100 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
@@ -27,10 +27,17 @@ function drawLinechart(elem) {
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-  // get the data
-  d3.json('/goals', function (err, data) {
-   if (err) throw err;
-   console.log(data);
+  // need to grab the user object from local storage and pass it whenever we do a get requet bc of auth
+  var user = JSON.parse(localStorage.getItem('user'));
+
+  // dif way to get data when we need to pass headers
+  d3.request('/goals')
+    .mimeType("application/json")
+    .header("Authorization", "Bearer " + user.token)
+    .response(function(xhr) { return JSON.parse(xhr.responseText); })
+    .get(function (err, data) {
+      if (err) throw err;
+   //console.log(data);
 
    // parsing our date. we tell d3 how the date is structured so it can grab and convert the elements into a Date object
   var parseDate = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
@@ -84,12 +91,12 @@ function drawLinechart(elem) {
 
 
 /* A custom directive for the line chart */
-app.directive("linechart", function() {
+app.directive("dcDotPlot", function() {
   return {
     restrict: 'E', // only use this directive as a tag
-    template: '<div class="line-chart-container"></div>',
+    template: '<div class="dot-plot-container"></div>',
     link: function (scope, elem, attrs) {
-      drawLinechart(elem);
+      drawDotPlot(elem);
     }
   };
 });
